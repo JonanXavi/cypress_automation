@@ -4,7 +4,10 @@
   "description": "Web automation project with cypress",
   "main": "index.js",
   "scripts": {
-    "cy:open": "cypress open"
+    "test:ui-headed-dev": "cypress open --env version=dev",
+    "test:ui-dev": "cypress run --env version=dev",
+    "test:ui-headed-prod": "cypress open --env version=prod",
+    "test:ui-headed": "cypress run --env version=prod"
   },
   "keywords": [
     "cypress",
@@ -14,6 +17,6 @@
   "author": "Jonathan Fernández",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^14.1.0"
+    "cypress": "^14.2.0"
   }
 }

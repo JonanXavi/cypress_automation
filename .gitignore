@@ -2,3 +2,6 @@
 # Cypress
 node_modules/
 /.idea/
+/cypress/videos
+/cypress/screenshots
+cypress.env.json
