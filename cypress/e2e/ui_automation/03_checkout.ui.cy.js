@@ -1,6 +1,7 @@
 /// <reference types="Cypress" />
 import productsPage from '../../pages/products_page'
 import checkoutPage from '../../pages/checkout_page'
+import { generateUserData } from '../../utils/testdata'
 import { assertText } from '../../utils/helpers'
 
 describe('Verify that the checkout functionality on the website works correctly', () => {
@@ -13,6 +14,8 @@ describe('Verify that the checkout functionality on the website works correctly'
     })
 
     it('Ensure that purchases can be completed on the website', function() {
+        const userData = generateUserData()
+
         cy.step('Add products to the shopping cart')
         this.products.forEach((product) => {
             productsPage.addProductToCartFromPLP(product)
@@ -25,9 +28,9 @@ describe('Verify that the checkout functionality on the website works correctly'
         checkoutPage.clickCheckoutButton()
 
         cy.step('Enter the required information in the "Checkout Information" form')
-        checkoutPage.typeFirstName('Jhon')
-        checkoutPage.typeLastName('Doe')
-        checkoutPage.typeZipCode('12345')
+        checkoutPage.typeFirstName(userData.firstName)
+        checkoutPage.typeLastName(userData.lastName)
+        checkoutPage.typeZipCode(userData.zip)
 
         cy.step('Click the "Continue" button in the "Checkout Information" section')
         checkoutPage.clickContinueButton()
