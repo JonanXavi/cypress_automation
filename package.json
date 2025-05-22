@@ -7,7 +7,9 @@
     "test:ui-headed-dev": "cypress open --env version=dev",
     "test:ui-dev": "cypress run --env version=dev",
     "test:ui-headed-prod": "cypress open --env version=prod",
-    "test:ui-headed": "cypress run --env version=prod"
+    "test:ui-prod": "cypress run --env version=prod",
+    "test:api-headed": "cypress open --env type=api",
+    "test:api": "cypress run --env type=api"
   },
   "keywords": [
     "cypress",
