@@ -23,12 +23,18 @@ module.exports = defineConfig({
         }
       })
 
-      const version = config.env.version || "dev"
-      config.env = require(`./cypress/config/${version}.json`)
-      config.baseUrl = config.env.baseUrl
+      const version = config.env.version || 'dev'
+      const type = config.env.type || 'ui'
+
+      const configFile = type === 'api' ? 'api.json' : `${version}.json`
+      const envConfig = require(`./cypress/config/${configFile}`);
+      config.env = { ...config.env, ...envConfig };
+      config.baseUrl = envConfig.baseUrl;
+
+      config.specPattern = `cypress/e2e/**/*.${type}.cy.{js,ts}`
 
       return config
     },
     watchForFileChanges: false
-  },
+  }
 })
