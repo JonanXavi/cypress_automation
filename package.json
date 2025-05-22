@@ -17,6 +17,9 @@
   "author": "Jonathan Fernández",
   "license": "ISC",
   "devDependencies": {
-    "cypress": "^14.2.0"
+    "cypress": "^14.4.0"
+  },
+  "dependencies": {
+    "cypress-plugin-steps": "^1.1.1"
   }
 }
