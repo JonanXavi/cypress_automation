@@ -1,5 +1,6 @@
 const { defineConfig } = require('cypress')
 const fs = require('fs')
+const { allureCypress } = require("allure-cypress/reporter")
 
 module.exports = defineConfig({
   pageLoadTimeout: 5 * 60 * 1000,
@@ -12,6 +13,10 @@ module.exports = defineConfig({
   e2e: {
     specPattern: "cypress/e2e/**/*.{cy,spec}.{js,ts}",
     setupNodeEvents(on, config) {
+      allureCypress(on, config, {
+        resultsDir: 'allure-results'
+      })
+
       on('after:spec', (spec, results) => {
         if (results && results.video) {
           const failures = results.tests.some((test) =>

@@ -4,12 +4,13 @@
   "description": "Web automation project with cypress",
   "main": "index.js",
   "scripts": {
-    "test:ui-headed-dev": "cypress open --env version=dev",
-    "test:ui-dev": "cypress run --env version=dev",
-    "test:ui-headed-prod": "cypress open --env version=prod",
-    "test:ui-prod": "cypress run --env version=prod",
-    "test:api-headed": "cypress open --env type=api",
-    "test:api": "cypress run --env type=api"
+    "test:ui-headed-dev": "rimraf allure-results && cypress open --env version=dev",
+    "test:ui-dev": "rimraf allure-results && cypress run --env version=dev",
+    "test:ui-headed-prod": "rimraf allure-results && cypress open --env version=prod",
+    "test:ui-prod": "rimraf allure-results && cypress run --env version=prod",
+    "test:api-headed": "rimraf allure-results && cypress open --env type=api",
+    "test:api": "rimraf allure-results && cypress run --env type=api",
+    "test:report": "npx allure generate ./allure-results --clean --single-file"
   },
   "keywords": [
     "cypress",
@@ -20,7 +21,10 @@
   "license": "ISC",
   "devDependencies": {
     "@faker-js/faker": "^9.8.0",
-    "cypress": "^14.4.0"
+    "allure-commandline": "^2.34.0",
+    "allure-cypress": "^3.2.2",
+    "cypress": "^14.4.0",
+    "rimraf": "^6.0.1"
   },
   "dependencies": {
     "cypress-plugin-steps": "^1.1.1"
