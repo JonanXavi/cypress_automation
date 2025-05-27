@@ -14,16 +14,30 @@ npm install
 ```
 
 ## 🌎 Environment Configuration
-The project allows execution in different environments (dev, prod). To define the credentials, you need to configure `cypress.env.json` files within the project.
+The project allows execution in different environments (api, dev, prod). To define the execution environment, you need to configure `.env` files within the project.
 
-Example of `cypress.env.json`:
-```json
-{
-  "user_dev": "standard_user",
-  "password_dev": "secret_sauce",
-  "user_prod": "user_cy_2025",
-  "password_prod": "cy2025"
-}
+Example of `.env.api`:
+```ini
+BASE_URL=https://restful-booker.herokuapp.com
+TYPE=api
+USER=admin
+PASSWORD=password123
+```
+
+Example of `.env.dev`:
+```ini
+BASE_URL=https://www.saucedemo.com/
+TYPE=ui
+USER=standard_user
+PASSWORD=secret_sauce
+```
+
+Example of `.env.prod`:
+```ini
+BASE_URL=https://www.demoblaze.com/
+TYPE=ui
+USER=user_pw_2025
+PASSWORD=pw2025
 ```
 
 ## 🚀 Running Tests
@@ -37,7 +51,12 @@ npm run test:ui-headed-dev
 npm run test:ui-dev
 ```
 
-### Run API Tests
+### Run API Tests - Headed
+```bash
+npm run test:api-headed
+```
+
+### Run API Tests - Headless
 ```bash
 npm run test:api
 ```
@@ -55,7 +74,6 @@ This will generate the reports in the `allure-results` folder.
 ├── 📁 allure-report
 ├── 📁 allure-results
 ├── 📁 cypress
-│   ├── 📁 config
 │   ├── 📁 downloads
 │   ├── 📁 e2e
 │   │   ├── 📁 api_automation
@@ -66,9 +84,9 @@ This will generate the reports in the `allure-results` folder.
 │   ├── 📁 support
 │   ├── 📁 utils
 │   └── 📁 videos
+├── 🔐 .env
 ├── 🚫 .gitignore
 ├── 🔧 cypress.config.js
-├── 🔐 cypress.env.json
 ├── 📦 package.json
 └── 📦 package-lock.json
 ```
