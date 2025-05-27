@@ -27,6 +27,8 @@
     "rimraf": "^6.0.1"
   },
   "dependencies": {
-    "cypress-plugin-steps": "^1.1.1"
+    "cypress-plugin-api": "^2.11.2",
+    "cypress-plugin-steps": "^1.1.1",
+    "dotenv": "^16.5.0"
   }
 }

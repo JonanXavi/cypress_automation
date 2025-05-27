@@ -4,10 +4,10 @@ export function assertText(getText, expectedText) {
     })
 }
 
-const API_URL = 'https://restful-booker.herokuapp.com'
+const API_URL = Cypress.env('BASE_URL')
 const CREDENTIALS = {
-    username: 'admin',
-    password: 'password123'
+    username: Cypress.env('USER'),
+    password: Cypress.env('PASSWORD')
 }
 
 export function getAuthToken() {

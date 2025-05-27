@@ -1,10 +1,11 @@
-
 # Cypress
 node_modules/
 /.idea/
 /cypress/downloads
 /cypress/videos
 /cypress/screenshots
-cypress.env.json
 allure-results
 allure-report
+.env.dev
+.env.prod
+.env.api
