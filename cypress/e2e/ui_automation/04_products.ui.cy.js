@@ -4,7 +4,7 @@ import productsPage from '../../pages/products_page'
 describe('Verify that the products page on the website works correctly', () => {
     beforeEach(function() {
         cy.intercept({ resourceType: /xhr|new url|fetch/ }, { log: false })
-        cy.login(Cypress.env('user_dev'), Cypress.env('password_dev'))
+        cy.login(Cypress.env('USER'), Cypress.env('PASSWORD'))
         cy.fixture('products').then((products) => {
             this.products = products
         })

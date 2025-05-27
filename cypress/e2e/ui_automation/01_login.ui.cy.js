@@ -5,7 +5,7 @@ import { assertText } from '../../utils/helpers'
 
 describe('Verify that the login functionality on the website works correctly', () => {
     beforeEach(function() {
-        cy.visit("/")
+        cy.visit(Cypress.env('BASE_URL'))
         cy.intercept({ resourceType: /xhr|new url|fetch/ }, { log: false })
         cy.fixture('users').then((users) => {
             this.users = users
