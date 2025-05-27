@@ -1,6 +1,8 @@
 const { defineConfig } = require('cypress')
 const fs = require('fs')
 const { allureCypress } = require("allure-cypress/reporter")
+const dotenv = require('dotenv')
+const path = require('path')
 
 module.exports = defineConfig({
   pageLoadTimeout: 5 * 60 * 1000,
@@ -13,6 +15,10 @@ module.exports = defineConfig({
   e2e: {
     specPattern: "cypress/e2e/**/*.{cy,spec}.{js,ts}",
     setupNodeEvents(on, config) {
+      const envFile = config.env.version || config.env.type || 'dev'
+      const envPath = path.resolve(__dirname, `.env.${envFile}`)
+      dotenv.config({ path: envPath })
+
       allureCypress(on, config, {
         resultsDir: 'allure-results'
       })
@@ -28,15 +34,16 @@ module.exports = defineConfig({
         }
       })
 
-      const version = config.env.version || 'dev'
-      const type = config.env.type || 'ui'
+      config.env = {
+        ...config.env,
+        BASE_URL: process.env.BASE_URL,
+        TYPE: process.env.TYPE,
+        USER: process.env.USER,
+        PASSWORD: process.env.PASSWORD
+      }
 
-      const configFile = type === 'api' ? 'api.json' : `${version}.json`
-      const envConfig = require(`./cypress/config/${configFile}`);
-      config.env = { ...config.env, ...envConfig };
-      config.baseUrl = envConfig.baseUrl;
-
-      config.specPattern = `cypress/e2e/**/*.${type}.cy.{js,ts}`
+      config.baseUrl = process.env.BASE_URL
+      config.specPattern = `cypress/e2e/**/*.${process.env.TYPE}.cy.{js,ts}`
 
       return config
     },

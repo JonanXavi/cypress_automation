@@ -12,7 +12,7 @@ describe('Verify that Booking APIs works correctly', () => {
     })
 
     it('[GET] - Retrieve the reservation list', () => {
-        cy.request('/booking').then((response) => {
+        cy.api('/booking').then((response) => {
             expect(response.status).to.eq(200)
             expect(response.body.length).to.be.greaterThan(0)
             expect(response.body[0]).to.have.property('bookingid')
@@ -22,7 +22,7 @@ describe('Verify that Booking APIs works correctly', () => {
     it('[POST] - Create a new reservation', () => {
         const bookingData = generateBookingData()
 
-        cy.request({
+        cy.api({
             method: 'POST',
             url: '/booking',
             body: {
@@ -53,7 +53,7 @@ describe('Verify that Booking APIs works correctly', () => {
     it('[PATCH] - Update partial reservation details', () => {
         const bookingData = generateBookingData()
 
-        cy.request({
+        cy.api({
             method: 'PATCH',
             url: '/booking/2',
             body: {
@@ -76,7 +76,7 @@ describe('Verify that Booking APIs works correctly', () => {
     })
 
     it('[DELETE] - Delete a reservation', () => {
-        cy.request({
+        cy.api({
             method: 'DELETE',
             url: '/booking/1',
             headers: {
