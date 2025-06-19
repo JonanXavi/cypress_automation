@@ -1,5 +1,6 @@
 class LoginPage {
     locators = {
+        logo: () => cy.get('div[class="login_logo"]'),
         usernameInput: () => cy.get('input[id="user-name"]'),
         passwordInput: () => cy.get('input[id="password"]'),
         errorMessage: () => cy.get('h3[data-test="error"]'),
