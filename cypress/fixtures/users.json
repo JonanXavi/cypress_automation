@@ -1,10 +1,14 @@
-[
-  {
-    "username": "locked_out_user",
+{
+  "validUser": {
+    "username": "standard_user",
     "password": "secret_sauce"
   },
-  {
-    "username": "visual_user",
+  "invalidUser": {
+    "username": "another_user",
+    "password": "secret_password"
+  },
+  "lockedUser": {
+    "username": "locked_out_user",
     "password": "secret_sauce"
   }
-]
+}

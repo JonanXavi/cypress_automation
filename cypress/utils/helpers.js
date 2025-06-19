@@ -1,9 +1,3 @@
-export function assertText(getText, expectedText) {
-    getText().then((actualText) => {
-        expect(actualText).to.contain(expectedText)
-    })
-}
-
 const API_URL = Cypress.env('BASE_URL')
 const CREDENTIALS = {
     username: Cypress.env('USER'),
