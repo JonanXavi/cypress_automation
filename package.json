@@ -1,9 +1,10 @@
 {
   "name": "cypress_project",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Web automation project with cypress",
   "main": "index.js",
   "scripts": {
+    "pretest": "eslint cypress/e2e/**/*.js",
     "test:ui-headed-dev": "rimraf allure-results && cypress open --env version=dev",
     "test:ui-dev": "rimraf allure-results && cypress run --env version=dev",
     "test:ui-headed-prod": "rimraf allure-results && cypress open --env version=prod",
@@ -20,10 +21,14 @@
   "author": "Jonathan Fernández",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/js": "^9.38.0",
     "@faker-js/faker": "^9.8.0",
     "allure-commandline": "^2.34.0",
     "allure-cypress": "^3.2.2",
     "cypress": "^14.5.0",
+    "eslint": "^9.38.0",
+    "eslint-define-config": "^2.1.0",
+    "eslint-plugin-cypress": "^5.2.0",
     "rimraf": "^6.0.1"
   },
   "dependencies": {
