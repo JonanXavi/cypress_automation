@@ -1,5 +1,6 @@
 /// <reference types="Cypress" />
-import productsPage from '../../pages/products_page'
+import productListPage from '../../pages/product/plp_page'
+import productDetailPage from '../../pages/product/pdp_page'
 
 describe('Validate the correct behavior of the products on the website', () => {
     beforeEach(function() {
@@ -16,15 +17,15 @@ describe('Validate the correct behavior of the products on the website', () => {
         const productsPrices = this.products.map(p => p.price);
 
         cy.step('Verify that all available products are loaded and displayed correctly on the Product Listing Page (PLP)')
-        productsPage.getProductsNames().then((actualProductsNames) => {
+        productListPage.getProductsNames().then((actualProductsNames) => {
             expect(actualProductsNames).to.deep.equal(productsNames)
         })
 
-        productsPage.getProductsDescriptions().then((actualProductsDetails) => {
+        productListPage.getProductsDescriptions().then((actualProductsDetails) => {
             expect(actualProductsDetails).to.deep.equal(productsDetails)
         })
 
-        productsPage.getProductsPrices().then((actualProductsPrices) => {
+        productListPage.getProductsPrices().then((actualProductsPrices) => {
             expect(actualProductsPrices).to.deep.equal(productsPrices)
         })
     })
@@ -35,21 +36,23 @@ describe('Validate the correct behavior of the products on the website', () => {
 
         for (let i = 0; i < productsNumber; i++) {
             cy.step(`Click on ${productsData[i].name} to open its Product Detail Page (PDP)`)
-            productsPage.clickOnProduct(productsData[i].name)
+            productListPage.clickOnProduct(productsData[i].name)
 
             cy.step('Verify that the product name, description, and price match the expected values')
-            productsPage.getProductName().then((actualProductName) => {
+            productDetailPage.getProductName().then((actualProductName) => {
                 expect(actualProductName).to.equal(productsData[i].name);
             })
-            productsPage.getProductDescription().then((actualProductDetail) => {
+
+            productDetailPage.getProductDescription().then((actualProductDetail) => {
                 expect(actualProductDetail).to.equal(productsData[i].description);
             })
-            productsPage.getProductPrice().then((actualProductPrice) => {
+
+            productDetailPage.getProductPrice().then((actualProductPrice) => {
                 expect(actualProductPrice).to.contain(productsData[i].price);
             })
 
             cy.step('Return to the Product Listing Page (PLP)')
-            productsPage.clickBackToProductsButton()
+            productDetailPage.clickBackToProductsButton()
         }
     })
 })

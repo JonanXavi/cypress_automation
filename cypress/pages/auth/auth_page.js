@@ -1,4 +1,4 @@
-class LoginPage {
+class AuthPage {
     locators = {
         logo: () => cy.get('div[class="login_logo"]'),
         usernameInput: () => cy.get('input[id="user-name"]'),
@@ -24,4 +24,4 @@ class LoginPage {
     }
 }
 
-module.exports = new LoginPage()
+module.exports = new AuthPage()
