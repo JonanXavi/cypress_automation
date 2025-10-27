@@ -3,7 +3,7 @@ This project uses the Cypress framework with JavaScript to perform **end-to-end 
 
 ## 📋 Requirements
 To run the project, the following requirements must be met:
-- [Node.js](https://nodejs.org/) (version 18 or higher)
+- [Node.js](https://nodejs.org/) (version 20 or higher)
 - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 - [allure-npm](https://github.com/allure-framework/allure-npm)
 

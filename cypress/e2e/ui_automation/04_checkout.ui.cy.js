@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
-import productsPage from '../../pages/products_page'
-import checkoutPage from '../../pages/checkout_page'
+import productListPage from '../../pages/product/plp_page'
+import checkoutPage from '../../pages/checkout/checkout_page'
 import { generateUserData } from '../../utils/testdata'
 import { assertText } from '../../utils/utils'
 
@@ -18,11 +18,11 @@ describe('Validate the correct behavior of the checkout functionality on the web
 
         cy.step('Add products to the shopping cart')
         this.products.forEach((product) => {
-            productsPage.addProductToCartFromPLP(product)
+            productListPage.addProductToCartFromPLP(product)
         })
 
         cy.step('Click the shopping cart icon to open the cart')
-        productsPage.clickOnTheShoppingCart()
+        productListPage.clickOnTheShoppingCart()
 
         cy.step('Click the “Checkout” button')
         checkoutPage.clickCheckoutButton()
