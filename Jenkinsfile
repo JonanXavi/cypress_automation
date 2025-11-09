@@ -6,6 +6,7 @@ pipeline {
     }
 
     environment {
+        TERM = "xterm-256color"
         BASE_URL = "https://www.saucedemo.com"
         TYPE = "ui"
         USER = credentials('SAUCEDEMO_CRED_DEV')
