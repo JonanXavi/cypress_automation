@@ -10,6 +10,7 @@ module.exports = defineConfig({
   requestTimeout: 2 * 60 * 1000,
   responseTimeout: 2 * 60 * 1000,
   video: true,
+  videoCompression: 32,
   screenshotOnRunFailure: true,
   retries: { "runMode": 2, "openMode": 2 },
   e2e: {
