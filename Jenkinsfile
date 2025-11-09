@@ -22,7 +22,12 @@ pipeline {
 
         stage('Run UI tests') {
             steps {
-                sh 'xvfb-run --auto-servernum npm run test:ui-dev'
+                sh '''
+                Xvfb :99 -screen 0 1280x1024x24 &
+                export DISPLAY=:99
+
+                xvfb-run --auto-servernum npm run test:ui-dev
+                '''
             }
         }
     }
