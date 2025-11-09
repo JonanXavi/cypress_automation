@@ -1,8 +1,8 @@
 pipeline {
-    agent any
-
-    tools {
-        nodejs "NodeJS 22.21.1"
+    agent {
+        docker {
+            image 'cypress/included:14.5.0'
+        }
     }
 
     environment {
@@ -22,12 +22,7 @@ pipeline {
 
         stage('Run UI tests') {
             steps {
-                sh '''
-                Xvfb :99 -screen 0 1280x1024x24 &
-                export DISPLAY=:99
-
-                xvfb-run --auto-servernum npm run test:ui-dev
-                '''
+                sh 'npm run test:ui-dev'
             }
         }
     }
