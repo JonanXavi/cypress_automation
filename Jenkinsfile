@@ -18,7 +18,8 @@ pipeline {
                 sh '''
                 apt-get update && apt-get install -y \
                 libgtk-3-0 libnotify4 libnss3 libxss1 libasound2 \
-                libx11-xcb1 libxcomposite1 libxdamage1 libxrandr2 libgbm1
+                libx11-xcb1 libxcomposite1 libxdamage1 libxrandr2 libgbm1 \
+                xvfb xauth
                 '''
             }
         }
@@ -31,7 +32,7 @@ pipeline {
 
         stage('Run UI tests') {
             steps {
-                sh 'npm run test:ui-dev'
+                sh 'xvfb-run --auto-servernum npm run test:ui-dev'
             }
         }
     }
