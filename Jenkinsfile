@@ -19,7 +19,7 @@ pipeline {
                 apt-get update && apt-get install -y \
                 libgtk-3-0 libnotify4 libnss3 libxss1 libasound2 \
                 libx11-xcb1 libxcomposite1 libxdamage1 libxrandr2 libgbm1 \
-                xvfb xauth
+                libpango1.0-0 libxcursor1 libxinerama1 libxext6 libxi6
                 '''
             }
         }
