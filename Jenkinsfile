@@ -22,7 +22,7 @@ pipeline {
 
         stage('Run UI tests') {
             steps {
-                sh 'npm run test:ui-dev'
+                sh 'xvfb-run --auto-servernum npm run test:ui-dev'
             }
         }
     }
