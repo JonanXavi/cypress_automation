@@ -6,7 +6,7 @@
   "scripts": {
     "pretest": "eslint cypress/e2e/**/*.js",
     "test:ui-headed-dev": "rimraf allure-results && cypress open --env version=dev",
-    "test:ui-dev": "cypress run --browser electron --headless --env version=dev",
+    "test:ui-dev": "rimraf cypress run --browser electron --headless --env version=dev",
     "test:ui-headed-prod": "rimraf allure-results && cypress open --env version=prod",
     "test:ui-prod": "rimraf allure-results && cypress run --env version=prod",
     "test:api-headed": "rimraf allure-results && cypress open --env type=api",
