@@ -21,7 +21,7 @@ pipeline {
                     string(credentialsId: 'USER_DEV', variable: 'USER'),
                     string(credentialsId: 'PASSWORD_DEV', variable: 'PASSWORD')
                 ]) {
-                    sh '''
+                    bat '''
                     echo "BASE_URL=$BASE_URL"   > .env.dev
                     echo "TYPE=ui"             >> .env.dev
                     echo "USER=$USER"          >> .env.dev
@@ -33,13 +33,13 @@ pipeline {
 
         stage('Install dependencies') {
             steps {
-                sh 'npm install'
+                bat 'npm install'
             }
         }
 
         stage('Run UI tests') {
             steps {
-                sh 'npm run test:ui-dev'
+                bat 'npm run test:ui-dev'
             }
         }
     }
