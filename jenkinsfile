@@ -14,14 +14,20 @@ pipeline {
     }
 
     stages {
-        stage('Create environment file') {
+        stage('Create .env file') {
             steps {
-                sh """
-                echo "BASE_URL=${BASE_URL}"   > .env.${ENV_NAME}
-                echo "TYPE=${TYPE}"          >> .env.${ENV_NAME}
-                echo "USER=${USER}"          >> .env.${ENV_NAME}
-                echo "PASSWORD=${PASSWORD}"  >> .env.${ENV_NAME}
-                """
+                withCredentials([
+                    string(credentialsId: 'BASE_URL_DEV', variable: 'BASE_URL'),
+                    string(credentialsId: 'USER_DEV', variable: 'USER'),
+                    string(credentialsId: 'PASSWORD_DEV', variable: 'PASSWORD')
+                ]) {
+                    sh '''
+                    echo "BASE_URL=$BASE_URL"   > .env.dev
+                    echo "TYPE=ui"             >> .env.dev
+                    echo "USER=$USER"          >> .env.dev
+                    echo "PASSWORD=$PASSWORD"  >> .env.dev
+                    '''
+                }
             }
         }
 
