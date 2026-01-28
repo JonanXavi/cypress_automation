@@ -1,26 +1,26 @@
 /// <reference types="Cypress" />
-import { getAuthToken } from '../../utils/helpers'
-import { generateBookingData } from '../../utils/testdata'
+import { getAuthToken } from '../../utils/auth.api';
+import { generateBookingData } from '../../utils/testdata';
 
-describe('Verify that Booking APIs works correctly', () => {
-    let authToken
+describe('Booking API | Reservation management', () => {
+    let authToken;
 
     before(() => {
         getAuthToken().then((token) => {
-            authToken = token
-        })
-    })
+            authToken = token;
+        });
+    });
 
-    it('[GET] - Retrieve the reservation list', () => {
+    it('[GET] Returns the list of existing reservations', () => {
         cy.api('/booking').then((response) => {
-            expect(response.status).to.eq(200)
-            expect(response.body.length).to.be.greaterThan(0)
-            expect(response.body[0]).to.have.property('bookingid')
-        })
-    })
+            expect(response.status).to.eq(200);
+            expect(response.body.length).to.be.greaterThan(0);
+            expect(response.body[0]).to.have.property('bookingid');
+        });
+    });
 
-    it('[POST] - Create a new reservation', () => {
-        const bookingData = generateBookingData()
+    it('[POST] Creates a new reservation successfully', () => {
+        const bookingData = generateBookingData();
 
         cy.api({
             method: 'POST',
@@ -32,26 +32,26 @@ describe('Verify that Booking APIs works correctly', () => {
                 depositpaid: bookingData.depositPaid,
                 bookingdates: {
                     checkin: bookingData.bookingDates.checkin,
-                    checkout: bookingData.bookingDates.checkout
+                    checkout: bookingData.bookingDates.checkout,
                 },
-                additionalneeds: bookingData.additionalNeeds
+                additionalneeds: bookingData.additionalNeeds,
             },
             headers: {
-                'Content-Type': 'application/json'
-            }
+                'Content-Type': 'application/json',
+            },
         }).then((response) => {
-            expect(response.status).to.eq(200)
+            expect(response.status).to.eq(200);
             expect(response.body.booking).to.include({
                 firstname: bookingData.firstName,
                 lastname: bookingData.lastName,
                 totalprice: bookingData.totalPrice,
-                depositpaid: bookingData.depositPaid
-            })
-        })
-    })
+                depositpaid: bookingData.depositPaid,
+            });
+        });
+    });
 
-    it('[PATCH] - Update partial reservation details', () => {
-        const bookingData = generateBookingData()
+    it('[PATCH] Updates specific fields of an existing reservation', () => {
+        const bookingData = generateBookingData();
 
         cy.api({
             method: 'PATCH',
@@ -59,33 +59,33 @@ describe('Verify that Booking APIs works correctly', () => {
             body: {
                 firstname: bookingData.firstName,
                 lastname: bookingData.lastName,
-                additionalneeds: bookingData.additionalNeeds
+                additionalneeds: bookingData.additionalNeeds,
             },
             headers: {
                 'Content-Type': 'application/json',
-                Cookie: `token=${authToken}`
-            }
+                Cookie: `token=${authToken}`,
+            },
         }).then((response) => {
-            expect(response.status).to.eq(200)
+            expect(response.status).to.eq(200);
             expect(response.body).to.include({
                 firstname: bookingData.firstName,
                 lastname: bookingData.lastName,
-                additionalneeds: bookingData.additionalNeeds
-            })
-        })
-    })
+                additionalneeds: bookingData.additionalNeeds,
+            });
+        });
+    });
 
-    it('[DELETE] - Delete a reservation', () => {
+    it('[DELETE] Deletes an existing reservation', () => {
         cy.api({
             method: 'DELETE',
             url: '/booking/1',
             headers: {
-                Cookie: `token=${authToken}`
+                Cookie: `token=${authToken}`,
             },
-            failOnStatusCode: false // Por si ya fue eliminado
+            failOnStatusCode: false,
         }).then((response) => {
-            expect(response.status).to.eq(201)
-            expect(response.statusText).to.eq('Created')
-        })
-    })
-})
+            expect(response.status).to.eq(201);
+            expect(response.statusText).to.eq('Created');
+        });
+    });
+});

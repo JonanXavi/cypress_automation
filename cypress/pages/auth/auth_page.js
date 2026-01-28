@@ -4,24 +4,24 @@ class AuthPage {
         usernameInput: () => cy.get('input[id="user-name"]'),
         passwordInput: () => cy.get('input[id="password"]'),
         errorMessage: () => cy.get('h3[data-test="error"]'),
-        loginBtn: () => cy.get('input[id="login-button"]')
-    }
+        loginBtn: () => cy.get('input[id="login-button"]'),
+    };
 
     typeUsername(username) {
-        this.locators.usernameInput().type(username, { log: false })
+        this.locators.usernameInput().type(username, { log: false });
     }
 
     typePassword(password) {
-        this.locators.passwordInput().type(password, { log: false })
+        this.locators.passwordInput().type(password, { log: false });
     }
 
     clickLoginButton() {
-        this.locators.loginBtn().click()
+        this.locators.loginBtn().click();
     }
 
     getErrorMessage() {
-        return this.locators.errorMessage().invoke('text')
+        return this.locators.errorMessage().invoke('text');
     }
 }
 
-module.exports = new AuthPage()
+module.exports = new AuthPage();
