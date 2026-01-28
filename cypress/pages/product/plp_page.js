@@ -7,23 +7,23 @@ class ProductListPage {
         productDescription: (productName) => cy.contains('div[data-test="inventory-item-description"]', productName),
         productName: () => cy.get('div[data-test="inventory-item-name"]'),
         productDetail: () => cy.get('div[data-test="inventory-item-desc"]'),
-        productPrice: () => cy.get('div[data-test="inventory-item-price"]')
-    }
+        productPrice: () => cy.get('div[data-test="inventory-item-price"]'),
+    };
 
     clickOnTheMenuButton() {
-        this.locators.menuBtn().click()
+        this.locators.menuBtn().click();
     }
 
     clickOnTheShoppingCart() {
-        this.locators.shoppingCartBtn().click()
+        this.locators.shoppingCartBtn().click();
     }
 
     getProductsTitle() {
-        return this.locators.productsHeader().invoke('text')
+        return this.locators.productsHeader().invoke('text');
     }
 
     clickOnProduct(product) {
-        this.locators.productName().contains(product).click()
+        this.locators.productName().contains(product).click();
     }
 
     addProductToCartFromPLP(product) {
@@ -31,22 +31,22 @@ class ProductListPage {
     }
 
     getProductsNames() {
-        return this.locators.productName().then($els => {
-            return [...$els].map(el => el.innerText.trim())
-        })
+        return this.locators.productName().then(($els) => {
+            return [...$els].map((el) => el.innerText.trim());
+        });
     }
 
     getProductsDescriptions() {
-        return this.locators.productDetail().then($els => {
-            return [...$els].map(el => el.innerText.trim())
-        })
+        return this.locators.productDetail().then(($els) => {
+            return [...$els].map((el) => el.innerText.trim());
+        });
     }
 
     getProductsPrices() {
-        return this.locators.productPrice().then($els => {
-            return [...$els].map(el => el.innerText.trim())
-        })
+        return this.locators.productPrice().then(($els) => {
+            return [...$els].map((el) => el.innerText.trim());
+        });
     }
 }
 
-module.exports = new ProductListPage()
+module.exports = new ProductListPage();

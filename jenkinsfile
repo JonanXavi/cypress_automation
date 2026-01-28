@@ -5,6 +5,10 @@ pipeline {
         nodejs "node_22"
     }
 
+    options {
+        timeout(time: 30, unit: 'MINUTES')
+    }
+
     environment {
         ENV_NAME = "dev"
         BASE_URL = credentials('BASE_URL_DEV')
@@ -14,6 +18,12 @@ pipeline {
     }
 
     stages {
+        stage('Lint Cypress tests') {
+            steps {
+                bat 'npm run pretest'
+            }
+        }
+
         stage('Create .env file') {
             steps {
                 withCredentials([
@@ -46,7 +56,15 @@ pipeline {
 
     post {
         always {
+            archiveArtifacts artifacts: 'cypress/screenshots/**,cypress/videos/**', allowEmptyArchive: true
             cleanWs()
+        }
+
+        failure {
+            echo '❌ UI tests failed'
+        }
+        success {
+            echo '✅ UI tests passed'
         }
     }
 }

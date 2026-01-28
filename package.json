@@ -1,39 +1,39 @@
 {
-  "name": "cypress_project",
-  "version": "1.1.0",
-  "description": "Web automation project with cypress",
-  "main": "index.js",
-  "scripts": {
-    "pretest": "eslint cypress/e2e/**/*.js",
-    "test:ui-headed-dev": "rimraf allure-results && cypress open --env version=dev",
-    "test:ui-dev": "rimraf allure-results && cypress run --env version=dev",
-    "test:ui-headed-prod": "rimraf allure-results && cypress open --env version=prod",
-    "test:ui-prod": "rimraf allure-results && cypress run --env version=prod",
-    "test:api-headed": "rimraf allure-results && cypress open --env type=api",
-    "test:api": "rimraf allure-results && cypress run --env type=api",
-    "test:report": "npx allure generate ./allure-results --clean --single-file"
-  },
-  "keywords": [
-    "cypress",
-    "javascript",
-    "automation"
-  ],
-  "author": "Jonathan Fernández",
-  "license": "ISC",
-  "devDependencies": {
-    "@eslint/js": "^9.38.0",
-    "@faker-js/faker": "^9.8.0",
-    "allure-commandline": "^2.34.0",
-    "allure-cypress": "^3.2.2",
-    "cypress": "^14.5.0",
-    "eslint": "^9.38.0",
-    "eslint-define-config": "^2.1.0",
-    "eslint-plugin-cypress": "^5.2.0",
-    "rimraf": "^6.0.1"
-  },
-  "dependencies": {
-    "cypress-plugin-api": "^2.11.2",
-    "cypress-plugin-steps": "^1.1.1",
-    "dotenv": "^16.5.0"
-  }
+    "name": "cypress_project",
+    "version": "1.2.0",
+    "description": "Web automation project with cypress",
+    "main": "index.js",
+    "scripts": {
+        "format": "prettier --write .",
+        "pretest": "eslint cypress/e2e/**/*.js",
+        "test:ui-headed-dev": "rimraf allure-results && cypress run --headed --env version=dev",
+        "test:ui-dev": "rimraf allure-results && cypress run --env version=dev",
+        "test:api-headed": "rimraf allure-results && cypress open --env type=api",
+        "test:api": "rimraf allure-results && cypress run --env type=api",
+        "test:report": "npx allure generate ./allure-results --clean --single-file"
+    },
+    "keywords": [
+        "cypress",
+        "javascript",
+        "automation"
+    ],
+    "author": "Jonathan Fernández",
+    "license": "ISC",
+    "devDependencies": {
+        "@eslint/js": "^9.38.0",
+        "@faker-js/faker": "^9.8.0",
+        "allure-commandline": "^2.34.0",
+        "allure-cypress": "^3.2.2",
+        "cypress": "^15.9.0",
+        "eslint": "^9.38.0",
+        "eslint-define-config": "^2.1.0",
+        "eslint-plugin-cypress": "^5.2.0",
+        "prettier": "^3.8.1",
+        "rimraf": "^6.0.1"
+    },
+    "dependencies": {
+        "cypress-plugin-api": "^2.11.2",
+        "cypress-plugin-steps": "^1.1.1",
+        "dotenv": "^16.5.0"
+    }
 }

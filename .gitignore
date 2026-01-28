@@ -1,11 +1,36 @@
-# Cypress
+# Dependencies
 node_modules/
-/.idea/
-/cypress/downloads
-/cypress/videos
-/cypress/screenshots
-allure-results
-allure-report
+
+# Cypress
+cypress/downloads/
+cypress/videos/
+cypress/screenshots/
+
+# Allure
+allure-results/
+allure-report/
+
+# Environment files
 .env.dev
 .env.prod
 .env.api
+
+# IDEs
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Cache
+.eslintcache
+.cache
+
+# Coverage
+coverage/
