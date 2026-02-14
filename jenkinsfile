@@ -18,12 +18,6 @@ pipeline {
     }
 
     stages {
-        stage('Lint Cypress tests') {
-            steps {
-                bat 'npm run pretest'
-            }
-        }
-
         stage('Create .env file') {
             steps {
                 withCredentials([
@@ -43,7 +37,13 @@ pipeline {
 
         stage('Install dependencies') {
             steps {
-                bat 'npm install'
+                bat 'npm ci'
+            }
+        }
+
+        stage('Lint Cypress tests') {
+            steps {
+                bat 'npm run pretest'
             }
         }
 
