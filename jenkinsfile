@@ -57,7 +57,7 @@ pipeline {
 
         stage('Generate Allure report') {
             steps {
-                bat 'npx allure generate "./allure-results" --clean --single-file'
+                bat 'npm run test:report'
             }
         }
 
