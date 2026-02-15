@@ -2,6 +2,7 @@
 import productListPage from '../../pages/product/plp_page';
 import cartPage from '../../pages/cart/cart_page';
 import checkoutPage from '../../pages/checkout/checkout_page';
+import * as allure from 'allure-js-commons';
 import { generateUserData } from '../../utils/testdata';
 import { assertText } from '../../utils/assertions';
 
@@ -12,9 +13,17 @@ describe('Checkout | Purchase flow', () => {
         cy.fixture('products').then((products) => {
             this.products = products;
         });
+
+        allure.owner('Jonathan Fernández');
+        allure.tags('Checkout', 'UI', 'E2E');
     });
 
     it('Allows users to successfully complete a purchase', function () {
+        allure.severity('blocker');
+        allure.description(
+            'Verifies that a user can successfully complete the full purchase flow, including cart review, checkout form submission, and order confirmation.'
+        );
+
         const userData = generateUserData();
 
         cy.step('Add products to the shopping cart');

@@ -3,9 +3,10 @@ const fs = require('fs');
 const { allureCypress } = require('allure-cypress/reporter');
 const dotenv = require('dotenv');
 const path = require('path');
+const { release, platform, version } = require('node:os');
 
 module.exports = defineConfig({
-    pageLoadTimeout: 5 * 60 * 1000,
+    pageLoadTimeout: 2 * 60 * 1000,
     defaultCommandTimeout: 2 * 60 * 1000,
     requestTimeout: 2 * 60 * 1000,
     responseTimeout: 2 * 60 * 1000,
@@ -22,10 +23,16 @@ module.exports = defineConfig({
 
             allureCypress(on, config, {
                 resultsDir: 'allure-results',
+                environmentInfo: {
+                    os_platform: platform(),
+                    os_release: release(),
+                    os_version: version(),
+                    node_version: process.version,
+                },
             });
 
             on('after:spec', (spec, results) => {
-                if (results && results.video) {
+                if (results?.video) {
                     const failures = results.tests.some((test) => test.attempts.some((attempt) => attempt.state === 'failed'));
                     if (!failures) {
                         fs.unlinkSync(results.video);

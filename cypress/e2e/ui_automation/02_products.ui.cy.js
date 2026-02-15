@@ -1,6 +1,7 @@
 /// <reference types="Cypress" />
 import productListPage from '../../pages/product/plp_page';
 import productDetailPage from '../../pages/product/pdp_page';
+import * as allure from 'allure-js-commons';
 
 describe('Products | Product listing and detail pages', () => {
     beforeEach(function () {
@@ -9,9 +10,17 @@ describe('Products | Product listing and detail pages', () => {
         cy.fixture('products').then((products) => {
             this.products = products;
         });
+
+        allure.owner('Jonathan Fernández');
+        allure.tags('Products', 'UI');
     });
 
     it('Displays all available products correctly on the Product Listing Page (PLP)', function () {
+        allure.severity('critical');
+        allure.description(
+            'Verifies that all available products are correctly displayed on the Product Listing Page, including name, price, and image.'
+        );
+
         const productsNames = this.products.map((p) => p.name);
         const productsDetails = this.products.map((p) => p.description);
         const productsPrices = this.products.map((p) => p.price);
@@ -33,6 +42,11 @@ describe('Products | Product listing and detail pages', () => {
     });
 
     it('Displays correct product information on the Product Detail Page (PDP)', function () {
+        allure.severity('normal');
+        allure.description(
+            'Validates that the Product Detail Page shows accurate product information such as name, description, price, and image.'
+        );
+
         const products = this.products;
 
         products.forEach((product) => {
