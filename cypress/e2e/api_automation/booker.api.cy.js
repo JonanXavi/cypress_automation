@@ -1,9 +1,15 @@
 /// <reference types="Cypress" />
+import * as allure from 'allure-js-commons';
 import { getAuthToken } from '../../utils/auth.api';
 import { generateBookingData } from '../../utils/testdata';
 
 describe('Booking API | Reservation management', () => {
     let authToken;
+
+    beforeEach(() => {
+        allure.owner('Jonathan Fernández');
+        allure.tags('Booking API', 'API');
+    });
 
     before(() => {
         getAuthToken().then((token) => {
