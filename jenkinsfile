@@ -71,7 +71,7 @@ pipeline {
 
                     rmdir /S /Q allure-gh-pages\\* 2>nul
 
-                    xcopy ..\\allure-report\\* allure-gh-pages /E /I /Y
+                    xcopy allure-report\\* allure-gh-pages /E /I /Y
 
                     cd allure-gh-pages
                     git add .
