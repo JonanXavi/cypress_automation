@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     def status = bat(
-                        script: 'curl -s -o NUL -w "%{http_code}" https://www.saucedemo.com/',
+                        script: 'curl -s -o NUL -w "%{http_code}" %BASE_URL%',
                         returnStdout: true
                     ).trim()
 
