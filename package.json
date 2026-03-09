@@ -7,10 +7,10 @@
         "format": "prettier --write .",
         "pretest": "eslint .",
         "lint:fix": "eslint . --fix",
-        "test:ui-headed-dev": "rimraf allure-results && cypress run --headed --env version=dev",
+        "test:ui-headed-dev": "cypress run --headed --env version=dev",
         "test:ui-dev": "cypress run --env version=dev",
-        "test:api-headed": "rimraf allure-results && cypress open --env type=api",
-        "test:api": "rimraf allure-results && cypress run --env type=api",
+        "test:api-headed": "cypress open --env type=api",
+        "test:api": "cypress run --env type=api",
         "test:report": "npx allure generate ./allure-results --clean --single-file",
         "report:open": "npx allure open allure-report"
     },

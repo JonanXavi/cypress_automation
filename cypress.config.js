@@ -16,16 +16,15 @@ module.exports = defineConfig({
     retries: { runMode: 2, openMode: 2 },
 
     e2e: {
-        specPattern: 'cypress/e2e/**/*.{cy,spec}.{js,ts}',
         setupNodeEvents(on, config) {
-            const envType = config.env.type || config.env.version || 'dev';
+            const envType = config.env.TYPE || 'ui';
             const envPath = path.resolve(__dirname, `.env.${envType}`);
             dotenv.config({ path: envPath });
 
             config.env = {
                 ...config.env,
                 BASE_URL: process.env.BASE_URL || config.env.BASE_URL,
-                TYPE: process.env.TYPE || config.env.TYPE || 'ui',
+                TYPE: process.env.TYPE || 'ui',
                 USER: process.env.USER || config.env.USER,
                 PASSWORD: process.env.PASSWORD || config.env.PASSWORD,
             };
@@ -45,7 +44,9 @@ module.exports = defineConfig({
 
             on('after:spec', (spec, results) => {
                 if (results?.video) {
-                    const failures = results.tests.some((test) => test.attempts.some((attempt) => attempt.state === 'failed'));
+                    const failures = results.tests.some(test =>
+                        test.attempts.some(attempt => attempt.state === 'failed')
+                    );
                     if (!failures) {
                         fs.unlinkSync(results.video);
                     }
