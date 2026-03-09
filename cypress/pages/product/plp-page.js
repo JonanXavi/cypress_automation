@@ -1,8 +1,8 @@
 class ProductListPage {
     locators = {
-        menuBtn: () => cy.get('button[id="react-burger-menu-btn"]'),
+        menuButton: () => cy.get('button[id="react-burger-menu-btn"]'),
         shoppingCartBadge: () => cy.get('span[data-test="shopping-cart-badge"]'),
-        shoppingCartBtn: () => cy.get('a[data-test="shopping-cart-link"]'),
+        shoppingCartButton: () => cy.get('a[data-test="shopping-cart-link"]'),
         productsHeader: () => cy.get('span[data-test="title"]'),
         productDescription: (productName) => cy.contains('div[data-test="inventory-item-description"]', productName),
         productName: () => cy.get('div[data-test="inventory-item-name"]'),
@@ -11,11 +11,11 @@ class ProductListPage {
     };
 
     clickOnTheMenuButton() {
-        this.locators.menuBtn().click();
+        this.locators.menuButton().click();
     }
 
     clickOnTheShoppingCart() {
-        this.locators.shoppingCartBtn().click();
+        this.locators.shoppingCartButton().click();
     }
 
     getProductsTitle() {

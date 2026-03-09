@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
-import productListPage from '../../pages/product/plp_page';
-import productDetailPage from '../../pages/product/pdp_page';
+import productListPage from '../../pages/product/plp-page';
+import productDetailPage from '../../pages/product/pdp-page';
 import * as allure from 'allure-js-commons';
 
 describe('Products | Product listing and detail pages', () => {
@@ -42,7 +42,7 @@ describe('Products | Product listing and detail pages', () => {
     });
 
     it('Displays correct product information on the Product Detail Page (PDP)', function () {
-        allure.severity('normal');
+        allure.severity('critical');
         allure.description(
             'Validates that the Product Detail Page shows accurate product information such as name, description, price, and image.'
         );

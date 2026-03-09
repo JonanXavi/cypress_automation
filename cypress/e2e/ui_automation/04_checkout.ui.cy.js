@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
-import productListPage from '../../pages/product/plp_page';
-import cartPage from '../../pages/cart/cart_page';
-import checkoutPage from '../../pages/checkout/checkout_page';
+import productListPage from '../../pages/product/plp-page';
+import cartPage from '../../pages/cart/cart-page';
+import checkoutPage from '../../pages/checkout/checkout-page';
 import * as allure from 'allure-js-commons';
 import { generateUserData } from '../../utils/testdata';
 import { assertText } from '../../utils/assertions';

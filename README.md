@@ -1,20 +1,63 @@
-# Cypress Automation
-
+![Node.js](https://img.shields.io/badge/Node.js-22.21.0-339933?logo=node.js&logoColor=white)
 ![Cypress](https://img.shields.io/badge/Cypress-15.9.0-brightgreen?logo=cypress)
-![Node.js](https://img.shields.io/badge/Node.js-20.18.0-339933?logo=node.js&logoColor=white)
 ![Jenkins](https://img.shields.io/badge/Jenkins-CI-blue?logo=jenkins)
+![Docker](https://img.shields.io/badge/Docker-Enabled-blue?logo=docker)
 ![Allure](https://img.shields.io/badge/Allure-Reporting-orange)
 ![ESLint](https://img.shields.io/badge/ESLint-9.38.0-brightgreen?logo=eslint&logoColor=white)
 ![Prettier](https://img.shields.io/badge/Prettier-3.8.1-blue?logo=prettier&logoColor=white)
 ![Testing](https://img.shields.io/badge/Testing-E2E%20%7C%20API-blue)
 
-This project is a Cypress-based automation framework built with JavaScript for:
+# Cypress E2E & API Automation Framework
 
-- End-to-End (E2E)
+This project is a **QA Automation Framework built with Cypress and JavaScript** designed to demonstrate modern automation practices used in real-world projects.
+
+The framework includes:
+
+- End-to-End (E2E) testing
 - API testing
-- Advanced reporting with Allure
+- Allure advanced reporting
 - CI/CD integration with Jenkins
-- Automated publishing of reports to GitHub Pages
+- Dockerized execution environment
+- Automated report publishing to GitHub Pages
+- Code quality enforcement using ESLint and Prettier
+
+---
+
+## ⭐ Key Features
+
+- End-to-End (E2E) UI automation with Cypress
+- API testing using REST requests
+- Page Object Model (POM) design pattern
+- Allure reporting for test analytics
+- Jenkins CI/CD pipeline
+- Dockerized test execution
+- Automated report publishing to GitHub Pages
+
+---
+
+## 🏭 Framework Architecture
+
+The framework follows a **modular architecture designed for scalability and maintainability**.
+
+### Project Layers
+
+| **Layer**    | **Responsibility**                |
+|--------------|-----------------------------------|
+| E2E Tests    | UI test scenarios                 |
+| API Tests    | Backend API validation            |
+| Page Objects | Encapsulate UI interactions       |
+| Fixtures     | Manage test data                  |
+| Utilities    | Shared helper functions           |
+| Support      | Custom Cypress commands and hooks |
+| Reporting    | Allure test results generation    |
+| CI/CD        | Jenkins pipeline execution        |
+
+### Design Principles
+
+- **Page Object Model (POM)** for UI abstraction
+- **Environment-based configuration** using `.env` files
+- **Separation of UI and API test layers**
+- **Reusable utilities and fixtures**
 
 ---
 
@@ -22,12 +65,13 @@ This project is a Cypress-based automation framework built with JavaScript for:
 
 Make sure the following are installed:
 
-- [Jenkins](https://www.jenkins.io/download/) (Optional)
-- [Node.js](https://nodejs.org/) (version 20 or higher)
+- [Node.js](https://nodejs.org/) (version 22 or higher)
 - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
-- [git](https://git-scm.com/install/)
+- [Git](https://git-scm.com/install/)
+- [Docker](https://www.docker.com/products/docker-desktop/) (Optional but recommended)
+- [Jenkins](https://www.jenkins.io/download/) (Optional for CI/CD demonstration)
 
-### Install Allure CLI globally
+### Install Allure CLI Globally
 
 ```bash
 npm install -g allure-commandline --save-dev
@@ -89,6 +133,30 @@ PASSWORD=secret_sauce
 
 ---
 
+## 🧪 Test Coverage
+
+### UI Automation
+
+UI tests cover critical user flows in the **SauceDemo application**:
+
+- Login validation
+- Product listing
+- Add products to cart
+- Cart validation
+- Checkout process
+
+### API Automation
+
+API tests validate the **Restful Booker API**:
+
+- Authentication
+- Create booking
+- Retrieve booking
+- Update booking
+- Delete booking
+
+---
+
 ## 🚀 Running Tests
 
 ### Run UI Tests - Headed
@@ -117,6 +185,37 @@ npm run test:api
 
 ---
 
+## 🐳 Running Tests with Docker
+
+This project includes a **Dockerized environment** to ensure consistent execution across machines and CI pipelines.
+
+### Build Docker Image
+
+```bash
+docker build -t cypress-automation .
+```
+
+### Run UI Tests in Docker
+
+```bash
+docker run --env-file .env.dev cypress-automation npm run test:ui-dev
+```
+
+### Run API Tests in Docker
+
+```bash
+docker run --env-file .env.api cypress-automation npm run test:api
+```
+
+### Benefits
+
+- Consistent execution environment
+- Avoid dependency conflicts
+- CI/CD friendly
+- Easy onboarding
+
+---
+
 ## 📊 Allure Reporting
 
 ### Step 1: Execute Tests
@@ -125,85 +224,67 @@ npm run test:api
 npm run test:ui-dev
 ```
 
-### Step 2: Generate Allure HTML Report
+### Step 2: Generate Report
 
 ```bash
 npm run test:report
 ```
 
-The HTML report will be generated in:
+### Step 3: View Allure Report
 
+```bash
+npm run report:open
 ```
-/allure-report/index.html
-```
-
-Open `index.html` in your browser to view the report.
 
 ---
 
-## 🧪 Reporting Strategy
+## 🧭 Reporting Strategy
 
 Allure metadata includes:
 
-- Severity levels (`blocker`, `critical`, `normal`)
-- Functional tags (Authentication, Products, Cart, Checkout)
+- Severity levels
+- Functional tags
 - Test ownership
-- Descriptions for business context
-
-**Severity classification:**
-
-| **Module**     | **Severity** |
-| -------------- | ------------ |
-| Checkout       | blocker      |
-| Cart           | critical     |
-| Authentication | critical     |
-| Products       | normal       |
+- Business context descriptions
 
 ---
 
-## 🔄 Jenkins CI/CD Integration
+## 🔁 CI/CD Pipeline (Jenkins)
 
-> [!IMPORTANT]
-> Jenkins integration is optional. You can fully run this project locally without Jenkins.  
-> This section is intended to demonstrate a real CI/CD pipeline setup for portfolio purposes.
+The project includes a CI/CD pipeline implemented with Jenkins to automate the execution of the test framework.
 
-### Purpose
+Pipeline stages:
 
-The Jenkins pipeline demonstrates:
+1️⃣ **Verify Application Availability**  
+Verifies that the target application is available before executing tests.
 
-- Installing dependencies automatically
-- Lint validation
-- Executing UI tests
-- Generating Allure reports
-- Publishing Allure reports inside Jenkins
-- Automatically pushing HTML reports to the `gh-pages` branch for GitHub Pages
+2️⃣ **Generate Environment Configuration**  
+Generates the required environment configuration using Jenkins credentials.
 
-### Required Jenkins Plugins
+3️⃣ **Build Test Environment**  
+Builds the Docker image used to run the tests in a consistent environment.
 
-- **NodeJS Plugin** – to run Node.js commands
-- **Allure Jenkins Plugin** – to visualize reports
-- **Pipeline Plugin** – for declarative pipelines
+4️⃣ **Execute Cypress UI Tests**  
+Executes Cypress UI tests inside the Docker container.
 
-### Global Tool Configuration
+5️⃣ **Generate Allure Test Report**  
+Processes test results and generates the Allure HTML report.
 
-1. Configure NodeJS (e.g., `node_22`)
-2. Configure Allure Commandline (give it the same name as in your pipeline, e.g., `allure`)
+6️⃣ **Publish Report to GitHub Pages**  
+Automatically pushes the generated report to the `gh-pages` branch to make it publicly accessible.
 
-### Required Jenkins Credentials
+Pipeline configuration is defined in `Jenkinsfile`
 
-Add the following credentials in Jenkins:
+---
 
-| Credential ID  | Description                               |
-| -------------- | ----------------------------------------- |
-| `BASE_URL_DEV` | Base URL for the dev environment          |
-| `USER_DEV`     | Username for dev environment              |
-| `PASSWORD_DEV` | Password for dev environment              |
-| `GITHUB_TOKEN` | Token for pushing reports to GitHub Pages |
+## 🔐 Required Jenkins Credentials
 
-### Notes
-
-- The `gh-pages` branch is automatically updated with Allure HTML reports.
-- Anyone cloning the project can still execute tests and generate reports locally without configuring Jenkins.
+| **Credential ID** | **Description**              |
+|-------------------|------------------------------|
+ BASE_URL_DEV      | Base URL for dev environment 
+ USER_DEV          | Username for dev environment 
+ PASSWORD_DEV      | Password for dev environment 
+ GITHUB_TOKEN      | Token for publishing reports 
 
 ---
 
@@ -211,13 +292,15 @@ Add the following credentials in Jenkins:
 
 To enable public report publishing:
 
-1. Go to Repository Settings
-2. Navigate to Pages
-3. Select branch: `gh-pages`
-4. Select folder: `/ (root)`
+1. Go to **Repository Settings**
+2. Navigate to **Pages**
+3. Select branch `gh-pages`
+4. Select folder `/ (root)`
 5. Save changes
 
-The report will be available at: https://jonanxavi.github.io/cypress_automation/
+Example report URL:
+
+https://jonanxavi.github.io/cypress_automation/
 
 > [!NOTE]
 > The URL changes depending on the user
@@ -228,41 +311,42 @@ The report will be available at: https://jonanxavi.github.io/cypress_automation/
 
 ```bash
 📁 cypress_automation
-├── 📁 allure-report
-├── 📁 allure-results
-├── 📁 cypress
-│   ├── 📁 downloads
-│   ├── 📁 e2e
-│   │   ├── 📁 api_automation
-│   │   └── 📁 ui_automation
-│   ├── 📁 fixtures
-│   ├── 📁 pages
-│   ├── 📁 screenshots
-│   ├── 📁 support
-│   ├── 📁 utils
-│   └── 📁 videos
-├── 🔐 .env.*
-├── 🚫 .gitignore
-├── 🚫 .prettierignore
-├── 📎 .prettierrc
-├── 🔧 cypress.config.js
-├── ⛔ eslint.config.cjs
-├── 📦 package.json
-└── 📦 package-lock.json
+├── 📁 allure-report        # Generated HTML reports
+├── 📁 allure-results       # Raw results generated during test execution
+├── 📁 cypress
+│   ├── 📁 downloads        # Files downloaded during tests
+│   ├── 📁 e2e
+│   │   ├── 📁 api_automation   # API test scenarios
+│   │   └── 📁 ui_automation    # UI end-to-end test scenarios
+│   ├── 📁 fixtures         # Static test data
+│   ├── 📁 pages            # Page Object Model classes
+│   ├── 📁 screenshots      # Screenshots captured on test failures
+│   ├── 📁 support          # Custom Cypress commands and hooks
+│   ├── 📁 utils            # Reusable helper functions
+│   └── 📁 videos           # Videos recorded during test execution
+├── 🐋 Dockerfile           # Docker environment for running tests
+├── 🏗 Jenkinsfile          # CI/CD pipeline configuration
+├── 🔧 cypress.config.js    # Cypress global configuration
+├── ⛔ eslint.config.cjs    # ESLint configuration
+├── 📦 package.json         # Project dependencies and scripts
+└── 📦 package-lock.json    # Dependency lock file
 ```
 
 ---
 
 ## 🧹 Code Quality & Formatting
 
-This project uses **ESLint** and **Prettier** to ensure code quality, consistency, and readability.
+This project enforces code quality using **ESLint** and **Prettier**.
 
 ### ESLint
 
-- Detects syntax errors, potential bugs, and enforces coding standards.
-- Configuration is located in `eslint.config.cjs`.
+Detects:
 
-#### Run lint check:
+- Syntax errors
+- Potential bugs
+- Coding standard violations
+
+Run lint validation:
 
 ```bash
 npm run pretest
@@ -270,10 +354,9 @@ npm run pretest
 
 ### Prettier
 
-- Automatically formats code (indentation, quotes, line length, etc.).
-- Configuration is located in `.prettierrc` and `.prettierignore`.
+Automatically formats code.
 
-#### Format all files:
+Format project:
 
 ```bash
 npm run format

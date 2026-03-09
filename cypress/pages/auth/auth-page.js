@@ -4,7 +4,7 @@ class AuthPage {
         usernameInput: () => cy.get('input[id="user-name"]'),
         passwordInput: () => cy.get('input[id="password"]'),
         errorMessage: () => cy.get('h3[data-test="error"]'),
-        loginBtn: () => cy.get('input[id="login-button"]'),
+        loginButton: () => cy.get('input[id="login-button"]'),
     };
 
     typeUsername(username) {
@@ -16,7 +16,7 @@ class AuthPage {
     }
 
     clickLoginButton() {
-        this.locators.loginBtn().click();
+        this.locators.loginButton().click();
     }
 
     getErrorMessage() {
