@@ -22,23 +22,6 @@ pipeline {
 
     stages {
 
-        stage('Verify Application Availability') {
-            steps {
-                script {
-                    def status = bat(
-                        script: 'curl -s -o NUL -w "%{http_code}" %BASE_URL%',
-                        returnStdout: true
-                    ).trim()
-
-                    if (status != '200') {
-                        error "❌ SauceDemo is DOWN! Status: ${status}"
-                    } else {
-                        echo "✅ SauceDemo is UP (Status: ${status})"
-                    }
-                }
-            }
-        }
-
         stage('Generate Environment Configuration') {
             steps {
                 withCredentials([

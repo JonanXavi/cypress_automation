@@ -255,22 +255,19 @@ The project includes a CI/CD pipeline implemented with Jenkins to automate the e
 
 Pipeline stages:
 
-1️⃣ **Verify Application Availability**  
-Verifies that the target application is available before executing tests.
-
-2️⃣ **Generate Environment Configuration**  
+1️⃣ **Generate Environment Configuration**  
 Generates the required environment configuration using Jenkins credentials.
 
-3️⃣ **Build Test Environment**  
+2️⃣ **Build Test Environment**  
 Builds the Docker image used to run the tests in a consistent environment.
 
-4️⃣ **Execute Cypress UI Tests**  
+3️⃣ **Execute Cypress UI Tests**  
 Executes Cypress UI tests inside the Docker container.
 
-5️⃣ **Generate Allure Test Report**  
+4️⃣ **Generate Allure Test Report**  
 Processes test results and generates the Allure HTML report.
 
-6️⃣ **Publish Report to GitHub Pages**  
+5️⃣ **Publish Report to GitHub Pages**  
 Automatically pushes the generated report to the `gh-pages` branch to make it publicly accessible.
 
 Pipeline configuration is defined in `Jenkinsfile`
