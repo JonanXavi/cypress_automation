@@ -54,7 +54,7 @@ pipeline {
                 -v %WORKSPACE%\\cypress\\screenshots:/app/cypress/screenshots ^
                 -v %WORKSPACE%\\cypress\\videos:/app/cypress/videos ^
                 --env-file .env.dev ^
-                ${DOCKER_IMAGE} npm run test:ui-dev
+                %DOCKER_IMAGE% npm run test:ui-dev
                 '''
             }
         }
@@ -65,7 +65,7 @@ pipeline {
                 docker run --rm ^
                 -v %WORKSPACE%\\allure-results:/app/allure-results ^
                 -v %WORKSPACE%\\allure-report:/app/allure-report ^
-                ${DOCKER_IMAGE} npm run test:report
+                %DOCKER_IMAGE% npm run test:report
                 '''
             }
         }
