@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const { allureCypress } = require('allure-cypress/reporter');
 const dotenv = require('dotenv');
 const path = require('node:path');
-const os = require('node:os');
+const { release, platform, version } = require('node:os');
 
 module.exports = defineConfig({
     pageLoadTimeout: 2 * 60 * 1000,
@@ -14,48 +14,45 @@ module.exports = defineConfig({
     videoCompression: 32,
     screenshotOnRunFailure: true,
     retries: { runMode: 2, openMode: 2 },
-
     e2e: {
+        specPattern: 'cypress/e2e/**/*.{cy,spec}.{js,ts}',
         setupNodeEvents(on, config) {
-            const envType = config.env.TYPE || 'ui';
-            const envPath = path.resolve(__dirname, `.env.${envType}`);
+            const envFile = config.env.version || config.env.type || 'dev';
+            const envPath = path.resolve(__dirname, `.env.${envFile}`);
             dotenv.config({ path: envPath });
-
-            config.env = {
-                ...config.env,
-                BASE_URL: process.env.BASE_URL || config.env.BASE_URL,
-                TYPE: process.env.TYPE || 'ui',
-                USER: process.env.USER || config.env.USER,
-                PASSWORD: process.env.PASSWORD || config.env.PASSWORD,
-            };
-
-            config.baseUrl = config.env.BASE_URL;
-            config.specPattern = `cypress/e2e/**/*.${config.env.TYPE}.cy.{js,ts}`;
 
             allureCypress(on, config, {
                 resultsDir: 'allure-results',
                 environmentInfo: {
-                    os_platform: os.platform(),
-                    os_release: os.release(),
-                    os_version: os.version(),
+                    os_platform: platform(),
+                    os_release: release(),
+                    os_version: version(),
                     node_version: process.version,
                 },
             });
 
             on('after:spec', (spec, results) => {
-                if (results?.video) {
+                if (results?.video && fs.existsSync(results.video)) {
                     const failures = results.tests.some(test =>
                         test.attempts.some(attempt => attempt.state === 'failed')
                     );
-                    if (!failures) {
-                        fs.unlinkSync(results.video);
-                    }
+                    if (!failures) fs.unlinkSync(results.video);
                 }
             });
 
+            config.env = {
+                ...config.env,
+                BASE_URL: process.env.BASE_URL,
+                TYPE: process.env.TYPE,
+                USER: process.env.USER,
+                PASSWORD: process.env.PASSWORD,
+            };
+
+            config.baseUrl = process.env.BASE_URL;
+            config.specPattern = `cypress/e2e/**/*.${process.env.TYPE}.cy.{js,ts}`;
+
             return config;
         },
-
         watchForFileChanges: false,
     },
 });

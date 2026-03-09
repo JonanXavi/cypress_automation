@@ -42,7 +42,7 @@ The framework follows a **modular architecture designed for scalability and main
 ### Project Layers
 
 | **Layer**    | **Responsibility**                |
-|--------------|-----------------------------------|
+| ------------ | --------------------------------- |
 | E2E Tests    | UI test scenarios                 |
 | API Tests    | Backend API validation            |
 | Page Objects | Encapsulate UI interactions       |
@@ -277,11 +277,11 @@ Pipeline configuration is defined in `Jenkinsfile`
 ## 🔐 Required Jenkins Credentials
 
 | **Credential ID** | **Description**              |
-|-------------------|------------------------------|
- BASE_URL_DEV      | Base URL for dev environment 
- USER_DEV          | Username for dev environment 
- PASSWORD_DEV      | Password for dev environment 
- GITHUB_TOKEN      | Token for publishing reports 
+| ----------------- | ---------------------------- |
+| BASE_URL_DEV      | Base URL for dev environment |
+| USER_DEV          | Username for dev environment |
+| PASSWORD_DEV      | Password for dev environment |
+| GITHUB_TOKEN      | Token for publishing reports |
 
 ---
 

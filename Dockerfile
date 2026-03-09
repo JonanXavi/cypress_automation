@@ -6,6 +6,7 @@ WORKDIR /app
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
+COPY cypress.config.js ./
 
 # Install dependencies
 RUN npm ci && npm install -g allure-commandline
