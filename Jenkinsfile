@@ -55,7 +55,6 @@ pipeline {
                 -v %WORKSPACE%\\cypress\\screenshots:/app/cypress/screenshots ^
                 -v %WORKSPACE%\\cypress\\videos:/app/cypress/videos ^
                 --env-file .env.dev ^
-                -e TYPE=ui ^
                 %DOCKER_IMAGE% npm run test:ui-dev
                 '''
             }
