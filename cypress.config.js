@@ -15,7 +15,7 @@ module.exports = defineConfig({
     screenshotOnRunFailure: true,
     retries: { runMode: 2, openMode: 2 },
     e2e: {
-        specPattern: 'cypress/e2e/**/*.{ui,api}.cy.{js,ts}',
+        specPattern: 'cypress/e2e/**/*.cy.{js,ts}',
         setupNodeEvents(on, config) {
             const envFile = config.env.version || config.env.type || 'dev';
             const envPath = path.resolve(__dirname, `.env.${envFile}`);
@@ -50,6 +50,16 @@ module.exports = defineConfig({
             };
 
             config.baseUrl = process.env.BASE_URL;
+
+            const testType = process.env.TYPE;
+
+            if (testType === 'ui') {
+                config.specPattern = 'cypress/e2e/ui_automation/**/*.cy.{js,ts}';
+            }
+
+            if (testType === 'api') {
+                config.specPattern = 'cypress/e2e/api_automation/**/*.cy.{js,ts}';
+            }
 
             return config;
         },
