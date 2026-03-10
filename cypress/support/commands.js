@@ -5,4 +5,5 @@ Cypress.Commands.add('login', (username, password) => {
     authPage.typeUsername(username);
     authPage.typePassword(password);
     authPage.clickLoginButton();
+    cy.wait(5000);
 });
