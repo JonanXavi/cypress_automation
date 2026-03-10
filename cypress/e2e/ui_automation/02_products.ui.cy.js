@@ -7,17 +7,10 @@ describe('Products | Product listing and detail pages', () => {
     beforeEach(function () {
         cy.intercept({ resourceType: /xhr|new url|fetch/ }, { log: false });
         //! cy.login(Cypress.env('USER'), Cypress.env('PASSWORD'));
+        cy.login('standard_user', 'secret_sauce');
         cy.fixture('products').then((products) => {
             this.products = products;
         });
-
-        cy.fixture('users').then((users) => {
-            this.users = users;
-        });
-
-        const validUser = this.users.validUser;
-
-        cy.login(validUser.username, validUser.password);
 
         allure.owner('Jonathan Fernández');
         allure.tags('Products', 'UI');
