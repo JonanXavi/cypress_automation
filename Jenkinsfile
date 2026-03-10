@@ -31,10 +31,17 @@ pipeline {
                     string(credentialsId: 'PASSWORD_DEV', variable: 'PASSWORD')
                 ]) {
                     bat '''
-                    echo BASE_URL=%BASE_URL% > .env.dev
+                    echo BASE_URL=%BASE_URL% >> .env.dev
                     echo TYPE=%TYPE% >> .env.dev
                     echo USER=%USER% >> .env.dev
                     echo PASSWORD=%PASSWORD% >> .env.dev
+
+                    echo '=== Archivos de configuración ==='
+                                ls -la cypress/
+                                echo '=== Contenido de .env.dev ==='
+                                cat .env.dev
+                                echo '=== Variables de entorno ==='
+                                env | grep -E 'USER|PASSWORD|BASE_URL|TYPE'
                     '''
                 }
             }
@@ -43,27 +50,6 @@ pipeline {
         stage('Build Test Environment') {
             steps {
                 bat 'docker build --pull -t %DOCKER_IMAGE% .'
-            }
-        }
-
-        stage('Debug - Test Environment') {
-            steps {
-                bat '''
-                echo === Verificando entorno Docker ===
-                docker run --rm -v %WORKSPACE%:/app %DOCKER_IMAGE% sh -c "
-                    echo '=== Versiones ==='
-                    node --version
-                    npm --version
-                    echo '=== Archivos de configuración ==='
-                    ls -la cypress/support/
-                    echo '=== Contenido de .env.dev ==='
-                    cat .env.dev
-                    echo '=== Variables de entorno ==='
-                    env | grep -E 'USER|PASSWORD|BASE_URL|TYPE'
-                    echo '=== Tests UI disponibles ==='
-                    ls -la cypress/e2e/ui_automation/
-                "
-                '''
             }
         }
 
