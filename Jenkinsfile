@@ -36,12 +36,10 @@ pipeline {
                     echo USER=%USER% >> .env.dev
                     echo PASSWORD=%PASSWORD% >> .env.dev
 
-                    echo '=== Archivos de configuración ==='
-                                ls -la cypress/
-                                echo '=== Contenido de .env.dev ==='
-                                cat .env.dev
-                                echo '=== Variables de entorno ==='
-                                env | grep -E 'USER|PASSWORD|BASE_URL|TYPE'
+                    dir cypress\\
+
+                    echo === Contenido de .env.dev ===
+                    type .env.dev
                     '''
                 }
             }
