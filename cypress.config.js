@@ -6,14 +6,14 @@ const path = require('node:path');
 const { release, platform, version } = require('node:os');
 
 module.exports = defineConfig({
-    pageLoadTimeout: 2 * 60 * 1000,
-    defaultCommandTimeout: 2 * 60 * 1000,
-    requestTimeout: 2 * 60 * 1000,
-    responseTimeout: 2 * 60 * 1000,
+    pageLoadTimeout: 60 * 1000,
+    defaultCommandTimeout: 60 * 1000,
+    requestTimeout: 60 * 1000,
+    responseTimeout: 60 * 1000,
     video: true,
     videoCompression: 32,
     screenshotOnRunFailure: true,
-    retries: { runMode: 2, openMode: 2 },
+    retries: { runMode: 1, openMode: 1 },
     e2e: {
         specPattern: 'cypress/e2e/**/*.cy.{js,ts}',
         setupNodeEvents(on, config) {
