@@ -15,10 +15,11 @@ module.exports = defineConfig({
     screenshotOnRunFailure: true,
     retries: { runMode: 2, openMode: 2 },
     e2e: {
-        specPattern: 'cypress/e2e/**/*.{cy,spec}.{js,ts}',
+        specPattern: 'cypress/e2e/**/*.{ui,api}.cy.{js,ts}',
         setupNodeEvents(on, config) {
             const envFile = config.env.version || config.env.type || 'dev';
             const envPath = path.resolve(__dirname, `.env.${envFile}`);
+
             dotenv.config({ path: envPath });
 
             allureCypress(on, config, {
@@ -49,7 +50,6 @@ module.exports = defineConfig({
             };
 
             config.baseUrl = process.env.BASE_URL;
-            config.specPattern = `cypress/e2e/**/*.${process.env.TYPE}.cy.{js,ts}`;
 
             return config;
         },
