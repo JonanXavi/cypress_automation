@@ -35,11 +35,6 @@ pipeline {
                     echo TYPE=%TYPE% >> .env.dev
                     echo USER=%USER% >> .env.dev
                     echo PASSWORD=%PASSWORD% >> .env.dev
-
-                    dir cypress\\
-
-                    echo === Contenido de .env.dev ===
-                    type .env.dev
                     '''
                 }
             }
