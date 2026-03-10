@@ -4,6 +4,7 @@ pipeline {
     options {
         timeout(time: 30, unit: 'MINUTES')
         timestamps()
+        buildDiscarder(logRotator(numToKeepStr: '3'))
     }
 
     environment {
@@ -54,6 +55,7 @@ pipeline {
                 -v %WORKSPACE%\\cypress\\screenshots:/app/cypress/screenshots ^
                 -v %WORKSPACE%\\cypress\\videos:/app/cypress/videos ^
                 --env-file .env.dev ^
+                -e TYPE=ui ^
                 %DOCKER_IMAGE% npm run test:ui-dev
                 '''
             }
@@ -84,7 +86,7 @@ pipeline {
 
                 cd allure-gh-pages
                 git add .
-                git commit -m "Allure Report - Build #%BUILD_NUMBER%" || echo No changes to commit
+                git commit -m "Allure Report - Build #%BUILD_NUMBER% - %DATE% %TIME%" || echo No changes to commit
                 git push https://%GIT_TOKEN%@%REPO_URL% gh-pages
                 '''
             }

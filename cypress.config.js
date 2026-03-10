@@ -34,10 +34,13 @@ module.exports = defineConfig({
 
             on('after:spec', (spec, results) => {
                 if (results?.video && fs.existsSync(results.video)) {
-                    const failures = results.tests.some(test =>
+                    const hasFailures = results.tests.some(test =>
                         test.attempts.some(attempt => attempt.state === 'failed')
                     );
-                    if (!failures) fs.unlinkSync(results.video);
+
+                    if (!hasFailures) {
+                        fs.unlinkSync(results.video);
+                    }
                 }
             });
 
