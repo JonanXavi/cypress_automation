@@ -40,6 +40,27 @@ pipeline {
             }
         }
 
+        stage('Debug - Test Environment') {
+            steps {
+                bat '''
+                echo === Verificando entorno Docker ===
+                docker run --rm -v %WORKSPACE%:/app %DOCKER_IMAGE% sh -c "
+                    echo '=== Versiones ==='
+                    node --version
+                    npm --version
+                    echo '=== Archivos de configuración ==='
+                    ls -la cypress/support/
+                    echo '=== Contenido de .env.dev ==='
+                    cat .env.dev
+                    echo '=== Variables de entorno ==='
+                    env | grep -E 'USER|PASSWORD|BASE_URL|TYPE'
+                    echo '=== Tests UI disponibles ==='
+                    ls -la cypress/e2e/ui_automation/
+                "
+                '''
+            }
+        }
+
         stage('Build Test Environment') {
             steps {
                 bat 'docker build --pull -t %DOCKER_IMAGE% .'
@@ -55,6 +76,7 @@ pipeline {
                 -v %WORKSPACE%\\cypress\\screenshots:/app/cypress/screenshots ^
                 -v %WORKSPACE%\\cypress\\videos:/app/cypress/videos ^
                 --env-file .env.dev ^
+                -e TYPE=ui ^
                 %DOCKER_IMAGE% npm run test:ui-dev
                 '''
             }
