@@ -40,6 +40,12 @@ pipeline {
             }
         }
 
+        stage('Build Test Environment') {
+            steps {
+                bat 'docker build --pull -t %DOCKER_IMAGE% .'
+            }
+        }
+
         stage('Debug - Test Environment') {
             steps {
                 bat '''
@@ -58,12 +64,6 @@ pipeline {
                     ls -la cypress/e2e/ui_automation/
                 "
                 '''
-            }
-        }
-
-        stage('Build Test Environment') {
-            steps {
-                bat 'docker build --pull -t %DOCKER_IMAGE% .'
             }
         }
 
