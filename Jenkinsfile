@@ -22,24 +22,6 @@ pipeline {
     }
 
     stages {
-
-        stage('Generate Environment Configuration') {
-            steps {
-                withCredentials([
-                    string(credentialsId: 'BASE_URL_DEV', variable: 'BASE_URL'),
-                    string(credentialsId: 'USER_DEV', variable: 'USER'),
-                    string(credentialsId: 'PASSWORD_DEV', variable: 'PASSWORD')
-                ]) {
-                    bat '''
-                    echo BASE_URL=%BASE_URL% >> .env.dev
-                    echo TYPE=%TYPE% >> .env.dev
-                    echo USER=%USER% >> .env.dev
-                    echo PASSWORD=%PASSWORD% >> .env.dev
-                    '''
-                }
-            }
-        }
-
         stage('Build Test Environment') {
             steps {
                 bat 'docker build --pull -t %DOCKER_IMAGE% .'
@@ -48,16 +30,24 @@ pipeline {
 
         stage('Execute Cypress UI Tests') {
             steps {
-                bat '''
-                docker run --rm ^
-                -v %WORKSPACE%\\allure-results:/app/allure-results ^
-                -v %WORKSPACE%\\allure-report:/app/allure-report ^
-                -v %WORKSPACE%\\cypress\\screenshots:/app/cypress/screenshots ^
-                -v %WORKSPACE%\\cypress\\videos:/app/cypress/videos ^
-                --env-file .env.dev ^
-                -e TYPE=ui ^
-                %DOCKER_IMAGE% npm run test:ui-dev
-                '''
+                withCredentials([
+                    string(credentialsId: 'BASE_URL_DEV', variable: 'BASE_URL'),
+                    string(credentialsId: 'USER_DEV', variable: 'USER'),
+                    string(credentialsId: 'PASSWORD_DEV', variable: 'PASSWORD')
+                ]) {
+                    bat '''
+                    docker run --rm ^
+                    -v %WORKSPACE%\\allure-results:/app/allure-results ^
+                    -v %WORKSPACE%\\allure-report:/app/allure-report ^
+                    -v %WORKSPACE%\\cypress\\screenshots:/app/cypress/screenshots ^
+                    -v %WORKSPACE%\\cypress\\videos:/app/cypress/videos ^
+                    -e BASE_URL=%BASE_URL% ^
+                    -e TYPE=%TYPE% ^
+                    -e USER=%USER% ^
+                    -e PASSWORD=%PASSWORD% ^
+                    %DOCKER_IMAGE% npm run test:ui-dev
+                    '''
+                }
             }
         }
 
