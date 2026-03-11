@@ -66,6 +66,7 @@ The framework follows a **modular architecture designed for scalability and main
 Make sure the following are installed:
 
 - [Node.js](https://nodejs.org/) (version 22 or higher)
+- [Java JDK 21+](https://adoptium.net/) (Required for Allure reports locally)
 - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 - [Git](https://git-scm.com/install/)
 - [Docker](https://www.docker.com/products/docker-desktop/) (Optional but recommended)
@@ -255,19 +256,16 @@ The project includes a CI/CD pipeline implemented with Jenkins to automate the e
 
 Pipeline stages:
 
-1️⃣ **Generate Environment Configuration**  
-Generates the required environment configuration using Jenkins credentials.
-
-2️⃣ **Build Test Environment**  
+1️⃣ **Build Test Environment**  
 Builds the Docker image used to run the tests in a consistent environment.
 
-3️⃣ **Execute Cypress UI Tests**  
+2️⃣ **Execute Cypress UI Tests**  
 Executes Cypress UI tests inside the Docker container.
 
-4️⃣ **Generate Allure Test Report**  
+3️⃣ **Generate Allure Test Report**  
 Processes test results and generates the Allure HTML report.
 
-5️⃣ **Publish Report to GitHub Pages**  
+4️⃣ **Publish Report to GitHub Pages**  
 Automatically pushes the generated report to the `gh-pages` branch to make it publicly accessible.
 
 Pipeline configuration is defined in `Jenkinsfile`
