@@ -1,7 +1,7 @@
 class CartPage {
     locators = {
         cartItem: () => cy.get('div[data-test="inventory-item"]'),
-        checkoutBtn: () => cy.get('button[id="checkout"]'),
+        checkoutButton: () => cy.get('button[id="checkout"]'),
     };
 
     getProductNames() {
@@ -18,7 +18,7 @@ class CartPage {
     }
 
     clickCheckoutButton() {
-        this.locators.checkoutBtn().click();
+        this.locators.checkoutButton().click();
     }
 }
 

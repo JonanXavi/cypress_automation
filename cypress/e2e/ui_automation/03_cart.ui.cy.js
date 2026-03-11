@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
-import productListPage from '../../pages/product/plp_page';
-import productDetailPage from '../../pages/product/pdp_page';
-import cartPage from '../../pages/cart/cart_page';
+import productListPage from '../../pages/product/plp-page';
+import productDetailPage from '../../pages/product/pdp-page';
+import cartPage from '../../pages/cart/cart-page';
 import * as allure from 'allure-js-commons';
 import { assertText } from '../../utils/assertions';
 
@@ -18,7 +18,7 @@ describe('Cart | Shopping cart functionality', () => {
     });
 
     it('Allows users to add products to the cart from the Product Listing Page (PLP)', function () {
-        allure.severity('critical');
+        allure.severity('blocker');
         allure.description('Verifies that a user can add a product to the shopping cart directly from the Product Listing Page.');
 
         const productsNumber = this.products.length;
@@ -33,7 +33,7 @@ describe('Cart | Shopping cart functionality', () => {
     });
 
     it('Allows users to add products to the cart from the Product Detail Page (PDP)', function () {
-        allure.severity('critical');
+        allure.severity('blocker');
         allure.description('Ensures that a user can successfully add a product to the shopping cart from the Product Detail Page.');
 
         const expectedNames = this.products.map((p) => p.name);
@@ -55,7 +55,7 @@ describe('Cart | Shopping cart functionality', () => {
     });
 
     it('Allows users to remove products from the shopping cart', function () {
-        allure.severity('normal');
+        allure.severity('critical');
         allure.description('Validates that a user can remove a previously added product from the shopping cart.');
 
         cy.step('Add products to the cart from the Product Listing Page');

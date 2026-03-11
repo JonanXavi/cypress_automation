@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
-import authPage from '../../pages/auth/auth_page';
-import productListPage from '../../pages/product/plp_page';
-import menuPage from '../../pages/menu/menu_page';
+import authPage from '../../pages/auth/auth-page';
+import productListPage from '../../pages/product/plp-page';
+import menuPage from '../../pages/menu/menu-page';
 import * as allure from 'allure-js-commons';
 import { assertText } from '../../utils/assertions';
 
@@ -18,7 +18,7 @@ describe('Login | User authentication flow', () => {
     });
 
     it('Displays a validation message when the username field is left empty', () => {
-        allure.severity('normal');
+        allure.severity('minor');
         allure.description('Displays an error message when the username field is left empty');
 
         cy.step('Attempt to login without entering any credentials');
@@ -29,7 +29,7 @@ describe('Login | User authentication flow', () => {
     });
 
     it('Displays a validation message when the password field is left empty', function () {
-        allure.severity('normal');
+        allure.severity('minor');
         allure.description('Displays an error message when the password field is left empty');
 
         const validUser = this.users.validUser;
@@ -79,7 +79,7 @@ describe('Login | User authentication flow', () => {
     });
 
     it('Allows a registered user to login successfully', function () {
-        allure.severity('critical');
+        allure.severity('blocker');
         allure.description('Allows a registered user to log in successfully');
 
         const validUser = this.users.validUser;
@@ -96,7 +96,7 @@ describe('Login | User authentication flow', () => {
     });
 
     it('Logs out the user and redirects to the login page', function () {
-        allure.severity('normal');
+        allure.severity('critical');
         allure.description('Logs out the user and redirects them to the login page');
 
         const validUser = this.users.validUser;

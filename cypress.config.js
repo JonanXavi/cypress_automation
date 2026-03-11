@@ -1,24 +1,25 @@
 const { defineConfig } = require('cypress');
-const fs = require('fs');
+const fs = require('node:fs');
 const { allureCypress } = require('allure-cypress/reporter');
 const dotenv = require('dotenv');
-const path = require('path');
+const path = require('node:path');
 const { release, platform, version } = require('node:os');
 
 module.exports = defineConfig({
-    pageLoadTimeout: 2 * 60 * 1000,
-    defaultCommandTimeout: 2 * 60 * 1000,
-    requestTimeout: 2 * 60 * 1000,
-    responseTimeout: 2 * 60 * 1000,
+    pageLoadTimeout: 60 * 1000,
+    defaultCommandTimeout: 60 * 1000,
+    requestTimeout: 60 * 1000,
+    responseTimeout: 60 * 1000,
     video: true,
     videoCompression: 32,
     screenshotOnRunFailure: true,
-    retries: { runMode: 2, openMode: 2 },
+    retries: { runMode: 1, openMode: 1 },
     e2e: {
-        specPattern: 'cypress/e2e/**/*.{cy,spec}.{js,ts}',
+        specPattern: 'cypress/e2e/**/*.cy.{js,ts}',
         setupNodeEvents(on, config) {
             const envFile = config.env.version || config.env.type || 'dev';
             const envPath = path.resolve(__dirname, `.env.${envFile}`);
+
             dotenv.config({ path: envPath });
 
             allureCypress(on, config, {
@@ -32,9 +33,12 @@ module.exports = defineConfig({
             });
 
             on('after:spec', (spec, results) => {
-                if (results?.video) {
-                    const failures = results.tests.some((test) => test.attempts.some((attempt) => attempt.state === 'failed'));
-                    if (!failures) {
+                if (results?.video && fs.existsSync(results.video)) {
+                    const hasFailures = results.tests.some(test =>
+                        test.attempts.some(attempt => attempt.state === 'failed')
+                    );
+
+                    if (!hasFailures) {
                         fs.unlinkSync(results.video);
                     }
                 }
@@ -49,7 +53,16 @@ module.exports = defineConfig({
             };
 
             config.baseUrl = process.env.BASE_URL;
-            config.specPattern = `cypress/e2e/**/*.${process.env.TYPE}.cy.{js,ts}`;
+
+            const testType = process.env.TYPE;
+
+            if (testType === 'ui') {
+                config.specPattern = 'cypress/e2e/ui_automation/**/*.cy.{js,ts}';
+            }
+
+            if (testType === 'api') {
+                config.specPattern = 'cypress/e2e/api_automation/**/*.cy.{js,ts}';
+            }
 
             return config;
         },

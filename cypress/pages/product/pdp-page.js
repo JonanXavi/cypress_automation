@@ -3,12 +3,12 @@ class ProductDetailPage {
         productName: () => cy.get('div[data-test="inventory-item-name"]'),
         productDetail: () => cy.get('div[data-test="inventory-item-desc"]'),
         productPrice: () => cy.get('div[data-test="inventory-item-price"]'),
-        addToCartBtn: () => cy.get('button[data-test="add-to-cart"]'),
-        backToProductsBtn: () => cy.get('button[data-test="back-to-products"]'),
+        addToCartButton: () => cy.get('button[data-test="add-to-cart"]'),
+        backToProductsButton: () => cy.get('button[data-test="back-to-products"]'),
     };
 
     clickAddToCartButton() {
-        this.locators.addToCartBtn().click();
+        this.locators.addToCartButton().click();
     }
 
     getProductName() {
@@ -24,7 +24,7 @@ class ProductDetailPage {
     }
 
     clickBackToProductsButton() {
-        this.locators.backToProductsBtn().click();
+        this.locators.backToProductsButton().click();
     }
 }
 

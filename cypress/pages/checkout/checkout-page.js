@@ -3,8 +3,8 @@ class CheckoutPage {
         firstNameInput: () => cy.get('input[id="first-name"]'),
         lastNameInput: () => cy.get('input[id="last-name"]'),
         zipCodeInput: () => cy.get('input[id="postal-code"]'),
-        continueBtn: () => cy.get('input[id="continue"]'),
-        finishBtn: () => cy.get('button[id="finish"]'),
+        continueButton: () => cy.get('input[id="continue"]'),
+        finishButton: () => cy.get('button[id="finish"]'),
         orderHeaderText: () => cy.get('h2[data-test="complete-header"]'),
         orderMessageText: () => cy.get('div[data-test="complete-text"]'),
     };
@@ -22,11 +22,11 @@ class CheckoutPage {
     }
 
     clickContinueButton() {
-        this.locators.continueBtn().click();
+        this.locators.continueButton().click();
     }
 
     clickFinishButton() {
-        this.locators.finishBtn().click();
+        this.locators.finishButton().click();
     }
 
     getOrderHeaderText() {
