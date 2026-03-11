@@ -1,6 +1,9 @@
 # Use Cypress base image
 FROM cypress/browsers:node-22.21.0-chrome-141.0.7390.107-1-ff-144.0-edge-141.0.3537.92-1
 
+#
+RUN apk add --no-cache openjdk17-jre
+
 # Set working directory
 WORKDIR /app
 
