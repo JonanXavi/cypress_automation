@@ -7,12 +7,17 @@
         "format": "prettier --write .",
         "pretest": "eslint .",
         "lint:fix": "eslint . --fix",
-        "test:ui-headed-dev": "rimraf allure-results && cypress run --headed --env version=dev",
+        "test:ui-headed-dev": "cypress run --headed --env version=dev",
         "test:ui-dev": "cypress run --env version=dev",
-        "test:api-headed": "rimraf allure-results && cypress open --env type=api",
-        "test:api": "rimraf allure-results && cypress run --env type=api",
-        "test:report": "npx allure generate ./allure-results --clean --single-file",
-        "report:open": "npx allure open allure-report"
+        "test:api-headed": "cypress open --env type=api",
+        "test:api": "cypress run --env type=api",
+        "test:report": "npx allure generate ./allure-results --clean",
+        "report:open": "npx allure open allure-report",
+        "docker:build": "docker build -t cypress-automation:latest .",
+        "docker:test": "docker compose run --rm tests",
+        "docker:report": "docker compose run --rm report",
+        "docker:serve": "docker compose up serve",
+        "docker:execution": "npm run docker:test && npm run docker:report && npm run docker:serve"
     },
     "keywords": [
         "cypress",
@@ -24,8 +29,8 @@
     "devDependencies": {
         "@eslint/js": "^9.38.0",
         "@faker-js/faker": "^9.8.0",
-        "allure-commandline": "^2.34.0",
-        "allure-cypress": "^3.2.2",
+        "allure-commandline": "^2.38.1",
+        "allure-cypress": "^3.6.0",
         "allure-js-commons": "^3.6.0",
         "cypress": "^15.9.0",
         "cypress-plugin-api": "^2.11.2",
@@ -34,8 +39,7 @@
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-cypress": "^5.2.0",
         "eslint-plugin-prettier": "^5.5.5",
-        "prettier": "^3.8.1",
-        "rimraf": "^6.0.1"
+        "prettier": "^3.8.1"
     },
     "dependencies": {
         "dotenv": "^16.5.0"

@@ -17,14 +17,12 @@ pipeline {
 
         GIT_TOKEN = credentials('GITHUB_TOKEN')
         REPO_URL = "github.com/JonanXavi/cypress_automation.git"
-
-        DOCKER_IMAGE = "cypress-automation:latest"
     }
 
     stages {
         stage('Build Test Environment') {
             steps {
-                bat 'docker build --pull -t %DOCKER_IMAGE% .'
+                bat 'docker compose build'
             }
         }
 
@@ -36,16 +34,12 @@ pipeline {
                     string(credentialsId: 'PASSWORD_DEV', variable: 'PASSWORD')
                 ]) {
                     bat '''
-                    docker run --rm ^
-                    -v %WORKSPACE%\\allure-results:/app/allure-results ^
-                    -v %WORKSPACE%\\allure-report:/app/allure-report ^
-                    -v %WORKSPACE%\\cypress\\screenshots:/app/cypress/screenshots ^
-                    -v %WORKSPACE%\\cypress\\videos:/app/cypress/videos ^
+                    docker compose run --rm ^
                     -e BASE_URL=%BASE_URL% ^
                     -e TYPE=%TYPE% ^
                     -e USER=%USER% ^
                     -e PASSWORD=%PASSWORD% ^
-                    %DOCKER_IMAGE% npm run test:ui-dev
+                    tests
                     '''
                 }
             }
@@ -53,12 +47,7 @@ pipeline {
 
         stage('Generate Allure Test Report') {
             steps {
-                bat '''
-                docker run --rm ^
-                -v %WORKSPACE%\\allure-results:/app/allure-results ^
-                -v %WORKSPACE%\\allure-report:/app/allure-report ^
-                %DOCKER_IMAGE% npm run test:report
-                '''
+                bat 'docker compose run --rm report'
             }
         }
 
