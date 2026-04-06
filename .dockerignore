@@ -4,8 +4,8 @@ node_modules
 .gitignore
 
 # Reports
-allure-report
-allure-results
+allure-report/
+allure-results/
 
 # Cypress artifacts
 cypress/videos

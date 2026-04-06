@@ -17,7 +17,7 @@ The framework includes:
 - API testing
 - Allure advanced reporting
 - CI/CD integration with Jenkins
-- Dockerized execution environment
+- Dockerized execution environment with Docker Compose
 - Automated report publishing to GitHub Pages
 - Code quality enforcement using ESLint and Prettier
 
@@ -30,8 +30,9 @@ The framework includes:
 - Page Object Model (POM) design pattern
 - Allure reporting for test analytics
 - Jenkins CI/CD pipeline
-- Dockerized test execution
+- Dockerized test execution with Docker Compose
 - Automated report publishing to GitHub Pages
+- Multi-environment support (.env files)
 
 ---
 
@@ -66,11 +67,11 @@ The framework follows a **modular architecture designed for scalability and main
 Make sure the following are installed:
 
 - [Node.js](https://nodejs.org/) (version 22 or higher)
-- [Java JDK 21+](https://adoptium.net/) (Required for Allure reports locally)
 - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 - [Git](https://git-scm.com/install/)
-- [Docker](https://www.docker.com/products/docker-desktop/) (Optional but recommended)
+- [Java JDK 21+](https://adoptium.net/) (Required for Allure reports locally)
 - [Jenkins](https://www.jenkins.io/download/) (Optional for CI/CD demonstration)
+- [Docker](https://www.docker.com/products/docker-desktop/) (Recommended)
 
 ### Install Allure CLI Globally
 
@@ -188,7 +189,13 @@ npm run test:api
 
 ## 🐳 Running Tests with Docker
 
-This project includes a **Dockerized environment** to ensure consistent execution across machines and CI pipelines.
+This project includes a Dockerized environment with Docker Compose to ensure consistent execution across machines and CI pipelines.
+
+### Why Docker Compose?
+
+- **One-command execution:** No need to remember long docker commands
+- **Consistent environment:** Same setup for local and CI/CD
+- **Auto-documentation:** The docker-compose.yml documents how to run everything minutes
 
 ### Build Docker Image
 
@@ -196,24 +203,36 @@ This project includes a **Dockerized environment** to ensure consistent executio
 docker build -t cypress-automation .
 ```
 
-### Run UI Tests in Docker
+### Run UI tests
 
 ```bash
-docker run --env-file .env.dev cypress-automation npm run test:ui-dev
+docker compose run --rm tests
 ```
 
-### Run API Tests in Docker
+### Generate Allure report
 
 ```bash
-docker run --env-file .env.api cypress-automation npm run test:api
+docker compose run --rm report
+```
+
+### Allure Server
+
+```bash
+docker compose up serve
+```
+
+### One-Command Execution (Recommended)
+
+```bash
+npm run docker:execution
 ```
 
 ### Benefits
 
-- Consistent execution environment
-- Avoid dependency conflicts
-- CI/CD friendly
-- Easy onboarding
+- **Zero configuration:** Everything is pre-configured
+- **Reproducible:** Same results everywhere
+- **Isolated:** No dependency conflicts
+- **Professional reports:** Allure served via nginx
 
 ---
 
@@ -254,19 +273,19 @@ Allure metadata includes:
 
 The project includes a CI/CD pipeline implemented with Jenkins to automate the execution of the test framework.
 
-Pipeline stages:
+### Pipeline stages:
 
 1️⃣ **Build Test Environment**  
-Builds the Docker image used to run the tests in a consistent environment.
+Builds the Docker image using Docker Compose
 
 2️⃣ **Execute Cypress UI Tests**  
-Executes Cypress UI tests inside the Docker container.
+Runs Cypress tests inside Docker container with environment variables
 
 3️⃣ **Generate Allure Test Report**  
 Processes test results and generates the Allure HTML report.
 
 4️⃣ **Publish Report to GitHub Pages**  
-Automatically pushes the generated report to the `gh-pages` branch to make it publicly accessible.
+Automatically pushes the generated report to the `gh-pages` branch
 
 Pipeline configuration is defined in `Jenkinsfile`
 
@@ -320,6 +339,7 @@ https://jonanxavi.github.io/cypress_automation/
 │   ├── 📁 utils            # Reusable helper functions
 │   └── 📁 videos           # Videos recorded during test execution
 ├── 🐋 Dockerfile           # Docker environment for running tests
+├── 🐳 Dockerfile           # Docker Compose orchestration
 ├── 🏗 Jenkinsfile          # CI/CD pipeline configuration
 ├── 🔧 cypress.config.js    # Cypress global configuration
 ├── ⛔ eslint.config.cjs    # ESLint configuration
