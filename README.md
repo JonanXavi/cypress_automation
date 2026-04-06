@@ -227,6 +227,9 @@ docker compose up serve
 npm run docker:execution
 ```
 
+> [!NOTE]
+> Report open at the URL: http://localhost:5050
+
 ### Benefits
 
 - **Zero configuration:** Everything is pre-configured
