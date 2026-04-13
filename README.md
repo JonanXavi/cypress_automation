@@ -45,16 +45,16 @@ This framework demonstrates my ability to:
 
 The framework follows a modular and scalable architecture:
 
-| Layer         | Responsibility                     |
-|--------------|----------------------------------|
-| E2E Tests     | UI test scenarios                |
-| API Tests     | Backend validation               |
-| Page Objects  | UI interaction abstraction       |
-| Fixtures      | Test data management             |
-| Utilities     | Shared reusable logic            |
-| Support       | Custom commands & hooks          |
-| Reporting     | Allure results generation        |
-| CI/CD         | Jenkins pipeline execution       |
+| Layer        | Responsibility             |
+| ------------ | -------------------------- |
+| E2E Tests    | UI test scenarios          |
+| API Tests    | Backend validation         |
+| Page Objects | UI interaction abstraction |
+| Fixtures     | Test data management       |
+| Utilities    | Shared reusable logic      |
+| Support      | Custom commands & hooks    |
+| Reporting    | Allure results generation  |
+| CI/CD        | Jenkins pipeline execution |
 
 ### Design Principles
 
