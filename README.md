@@ -264,6 +264,7 @@ https://jonanxavi.github.io/cypress_automation/
 │   └── 📁 videos           # Videos recorded during test execution
 ├── 🐳 docker-compose.yml   # Docker Compose orchestration
 ├── 🐋 Dockerfile           # Docker environment for running tests
+├── 🐳 Dockerfile           # Docker Compose orchestration
 ├── 🏗 Jenkinsfile          # CI/CD pipeline configuration
 ├── 🔧 cypress.config.js    # Cypress global configuration
 ├── ⛔ eslint.config.cjs    # ESLint configuration
