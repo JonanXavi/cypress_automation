@@ -13,7 +13,7 @@
         "test:api": "cypress run --env type=api",
         "test:report": "npx allure generate ./allure-results --clean",
         "report:open": "npx allure open allure-report",
-        "docker:build": "docker build -t cypress-automation:latest .",
+        "docker:build": "docker build -t cypress-automation .",
         "docker:test": "docker compose run --rm tests",
         "docker:report": "docker compose run --rm report",
         "docker:serve": "docker compose up serve",

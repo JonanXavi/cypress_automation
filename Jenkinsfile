@@ -8,7 +8,6 @@ pipeline {
     }
 
     environment {
-        ENV_NAME = "dev"
         TYPE = "ui"
 
         BASE_URL = credentials('BASE_URL_DEV')
@@ -22,26 +21,20 @@ pipeline {
     stages {
         stage('Build Test Environment') {
             steps {
-                bat 'docker compose build'
+                bat 'docker compose build --pull'
             }
         }
 
         stage('Execute Cypress UI Tests') {
             steps {
-                withCredentials([
-                    string(credentialsId: 'BASE_URL_DEV', variable: 'BASE_URL'),
-                    string(credentialsId: 'USER_DEV', variable: 'USER'),
-                    string(credentialsId: 'PASSWORD_DEV', variable: 'PASSWORD')
-                ]) {
-                    bat '''
-                    docker compose run --rm ^
-                    -e BASE_URL=%BASE_URL% ^
-                    -e TYPE=%TYPE% ^
-                    -e USER=%USER% ^
-                    -e PASSWORD=%PASSWORD% ^
-                    tests
-                    '''
-                }
+                bat '''
+                echo BASE_URL=%BASE_URL% > .env.dev
+                echo TYPE=%TYPE% >> .env.dev
+                echo USER=%USER% >> .env.dev
+                echo PASSWORD=%PASSWORD% >> .env.dev
+
+                docker compose run --rm tests
+                '''
             }
         }
 

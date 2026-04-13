@@ -1,31 +1,31 @@
 services:
-  # Playwright Tests
-  tests:
-    build: .
-    image: cypress-automation:latest
-    container_name: cypress-tests
-    volumes:
-      - ./allure-results:/app/allure-results
-      - ./cypress/screenshots:/app/cypress/screenshots
-      - ./cypress/videos:/app/cypress/videos
-    env_file:
-      - .env.dev
-    command: npm run test:ui-dev
+    # Cypress Tests
+    tests:
+        build: .
+        image: cypress-automation
+        container_name: cypress-tests
+        volumes:
+            - ./allure-results:/app/allure-results
+            - ./cypress/screenshots:/app/cypress/screenshots
+            - ./cypress/videos:/app/cypress/videos
+        env_file:
+            - .env.dev
+        command: npm run test:ui-dev
 
-  # Generate report
-  report:
-    image: cypress-automation:latest
-    container_name: allure-report-generator
-    volumes:
-      - ./allure-results:/app/allure-results
-      - ./allure-report:/app/allure-report
-    command: npm run test:report
+    # Generate report
+    report:
+        image: cypress-automation
+        container_name: allure-report-generator
+        volumes:
+            - ./allure-results:/app/allure-results
+            - ./allure-report:/app/allure-report
+        command: npm run test:report
 
-  # Allure Server
-  serve:
-    image: nginx:alpine
-    container_name: allure-server
-    volumes:
-      - ./allure-report:/usr/share/nginx/html:ro
-    ports:
-      - "5050:80"
+    # Allure Server
+    serve:
+        image: nginx:alpine
+        container_name: allure-server
+        volumes:
+            - ./allure-report:/usr/share/nginx/html:ro
+        ports:
+            - '5050:80'

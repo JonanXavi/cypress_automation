@@ -9,81 +9,70 @@
 
 # Cypress E2E & API Automation Framework
 
-This project is a **QA Automation Framework built with Cypress and JavaScript** designed to demonstrate modern automation practices used in real-world projects.
+This project is a production-ready QA Automation framework built with Cypress and JavaScript, designed to demonstrate scalable, maintainable, and real-world testing practices.
 
-The framework includes:
+It showcases how to design, execute, and integrate automated tests across UI and API layers, following industry standards.
 
-- End-to-End (E2E) testing
-- API testing
-- Allure advanced reporting
-- CI/CD integration with Jenkins
-- Dockerized execution environment with Docker Compose
-- Automated report publishing to GitHub Pages
-- Code quality enforcement using ESLint and Prettier
+---
+
+## 🎯 Why this project matters
+
+This framework demonstrates my ability to:
+
+- Design scalable test architectures
+- Implement E2E and API automation strategies
+- Apply best practices (POM, modular design, separation of concerns)
+- Integrate testing into CI/CD pipelines
+- Deliver actionable test reports for stakeholders
 
 ---
 
 ## ⭐ Key Features
 
-- End-to-End (E2E) UI automation with Cypress
-- API testing using REST requests
+- End-to-End (E2E) UI testing with Cypress
+- API testing (REST)
 - Page Object Model (POM) design pattern
-- Allure reporting for test analytics
-- Jenkins CI/CD pipeline
-- Dockerized test execution with Docker Compose
+- Multienvironment support using `.env`
+- Allure reporting with rich test analytics
+- CI/CD integration with Jenkins
+- Dockerized execution (Docker + Docker Compose)
 - Automated report publishing to GitHub Pages
-- Multi-environment support (.env files)
+- Code quality enforcement (ESLint + Prettier)
 
 ---
 
-## 🏭 Framework Architecture
+## 🏭 Architecture
 
-The framework follows a **modular architecture designed for scalability and maintainability**.
+The framework follows a modular and scalable architecture:
 
-### Project Layers
-
-| **Layer**    | **Responsibility**                |
-| ------------ | --------------------------------- |
-| E2E Tests    | UI test scenarios                 |
-| API Tests    | Backend API validation            |
-| Page Objects | Encapsulate UI interactions       |
-| Fixtures     | Manage test data                  |
-| Utilities    | Shared helper functions           |
-| Support      | Custom Cypress commands and hooks |
-| Reporting    | Allure test results generation    |
-| CI/CD        | Jenkins pipeline execution        |
+| Layer        | Responsibility             |
+| ------------ | -------------------------- |
+| E2E Tests    | UI test scenarios          |
+| API Tests    | Backend validation         |
+| Page Objects | UI interaction abstraction |
+| Fixtures     | Test data management       |
+| Utilities    | Shared reusable logic      |
+| Support      | Custom commands & hooks    |
+| Reporting    | Allure results generation  |
+| CI/CD        | Jenkins pipeline execution |
 
 ### Design Principles
 
-- **Page Object Model (POM)** for UI abstraction
-- **Environment-based configuration** using `.env` files
-- **Separation of UI and API test layers**
-- **Reusable utilities and fixtures**
+- Separation of UI and API testing layers
+- Reusable and maintainable components
+- Environment-based configuration
+- Clean and readable test design
 
 ---
 
 ## 📋 Requirements
 
-Make sure the following are installed:
-
 - [Node.js](https://nodejs.org/) (version 22 or higher)
 - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
-- [Git](https://git-scm.com/install/)
-- [Java JDK 21+](https://adoptium.net/) (Required for Allure reports locally)
-- [Jenkins](https://www.jenkins.io/download/) (Optional for CI/CD demonstration)
-- [Docker](https://www.docker.com/products/docker-desktop/) (Recommended)
-
-### Install Allure CLI Globally
-
-```bash
-npm install -g allure-commandline --save-dev
-```
-
-Verify installation:
-
-```bash
-allure --version
-```
+- [allure-commandline](https://www.npmjs.com/package/allure-commandline)
+- [Java JDK 21+](https://adoptium.net/) (for Allure reports)
+- [Docker](https://www.docker.com/products/docker-desktop/) (recommended)
+- [Jenkins](https://www.jenkins.io/download/) (optional for CI/CD demo)
 
 ---
 
@@ -111,8 +100,6 @@ npm install
 
 ## 🌎 Environment Configuration
 
-The framework supports multiple environments using `.env` files.
-
 Create the corresponding `.env` file in the root directory.
 
 Example of `.env.api`:
@@ -137,25 +124,17 @@ PASSWORD=secret_sauce
 
 ## 🧪 Test Coverage
 
-### UI Automation
+### UI (SauceDemo)
 
-UI tests cover critical user flows in the **SauceDemo application**:
-
-- Login validation
+- Login
 - Product listing
-- Add products to cart
-- Cart validation
-- Checkout process
+- Add to cart
+- Checkout flow
 
-### API Automation
-
-API tests validate the **Restful Booker API**:
+### API (Restful Booker)
 
 - Authentication
-- Create booking
-- Retrieve booking
-- Update booking
-- Delete booking
+- CRUD operations (booking)
 
 ---
 
@@ -187,15 +166,9 @@ npm run test:api
 
 ---
 
-## 🐳 Running Tests with Docker
+## 🐳 Docker Execution
 
-This project includes a Dockerized environment with Docker Compose to ensure consistent execution across machines and CI pipelines.
-
-### Why Docker Compose?
-
-- **One-command execution:** No need to remember long docker commands
-- **Consistent environment:** Same setup for local and CI/CD
-- **Auto-documentation:** The docker-compose.yml documents how to run everything minutes
+Run tests in a fully isolated environment:
 
 ### Build Docker Image
 
@@ -215,13 +188,13 @@ docker compose run --rm tests
 docker compose run --rm report
 ```
 
-### Allure Server
+### Allure server
 
 ```bash
 docker compose up serve
 ```
 
-### One-Command Execution (Recommended)
+### One Command Execution
 
 ```bash
 npm run docker:execution
@@ -230,97 +203,45 @@ npm run docker:execution
 > [!NOTE]
 > Report open at the URL: http://localhost:5050
 
-### Benefits
-
-- **Zero configuration:** Everything is pre-configured
-- **Reproducible:** Same results everywhere
-- **Isolated:** No dependency conflicts
-- **Professional reports:** Allure served via nginx
-
 ---
 
-## 📊 Allure Reporting
+## 📊 Reporting (Allure)
 
-### Step 1: Execute Tests
-
-```bash
-npm run test:ui-dev
-```
-
-### Step 2: Generate Report
+### Generate Report
 
 ```bash
 npm run test:report
 ```
 
-### Step 3: View Allure Report
+### View Allure Report
 
 ```bash
 npm run report:open
 ```
 
----
+### Includes:
 
-## 🧭 Reporting Strategy
-
-Allure metadata includes:
-
+- Test steps
 - Severity levels
-- Functional tags
-- Test ownership
-- Business context descriptions
+- Execution history
+- Failure evidence (screenshots/videos)
 
 ---
 
-## 🔁 CI/CD Pipeline (Jenkins)
-
-The project includes a CI/CD pipeline implemented with Jenkins to automate the execution of the test framework.
+## 🔁 CI/CD (Jenkins)
 
 ### Pipeline stages:
 
-1️⃣ **Build Test Environment**  
-Builds the Docker image using Docker Compose
-
-2️⃣ **Execute Cypress UI Tests**  
-Runs Cypress tests inside Docker container with environment variables
-
-3️⃣ **Generate Allure Test Report**  
-Processes test results and generates the Allure HTML report.
-
-4️⃣ **Publish Report to GitHub Pages**  
-Automatically pushes the generated report to the `gh-pages` branch
-
-Pipeline configuration is defined in `Jenkinsfile`
+1. Build Docker environment
+2. Execute tests
+3. Generate Allure report
+4. Publish report to GitHub Pages
 
 ---
 
-## 🔐 Required Jenkins Credentials
-
-| **Credential ID** | **Description**              |
-| ----------------- | ---------------------------- |
-| BASE_URL_DEV      | Base URL for dev environment |
-| USER_DEV          | Username for dev environment |
-| PASSWORD_DEV      | Password for dev environment |
-| GITHUB_TOKEN      | Token for publishing reports |
-
----
-
-## 🌍 GitHub Pages Setup
-
-To enable public report publishing:
-
-1. Go to **Repository Settings**
-2. Navigate to **Pages**
-3. Select branch `gh-pages`
-4. Select folder `/ (root)`
-5. Save changes
-
-Example report URL:
+## 🌍 Live Report
 
 https://jonanxavi.github.io/cypress_automation/
-
-> [!NOTE]
-> The URL changes depending on the user
 
 ---
 
@@ -341,6 +262,7 @@ https://jonanxavi.github.io/cypress_automation/
 │   ├── 📁 support          # Custom Cypress commands and hooks
 │   ├── 📁 utils            # Reusable helper functions
 │   └── 📁 videos           # Videos recorded during test execution
+├── 🐳 docker-compose.yml   # Docker Compose orchestration
 ├── 🐋 Dockerfile           # Docker environment for running tests
 ├── 🐳 Dockerfile           # Docker Compose orchestration
 ├── 🏗 Jenkinsfile          # CI/CD pipeline configuration
@@ -354,15 +276,7 @@ https://jonanxavi.github.io/cypress_automation/
 
 ## 🧹 Code Quality & Formatting
 
-This project enforces code quality using **ESLint** and **Prettier**.
-
 ### ESLint
-
-Detects:
-
-- Syntax errors
-- Potential bugs
-- Coding standard violations
 
 Run lint validation:
 
@@ -371,8 +285,6 @@ npm run pretest
 ```
 
 ### Prettier
-
-Automatically formats code.
 
 Format project:
 
