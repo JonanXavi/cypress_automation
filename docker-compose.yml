@@ -1,8 +1,8 @@
 services:
-  # Playwright Tests
+  # Cypress Tests
   tests:
     build: .
-    image: cypress-automation:latest
+    image: cypress-automation
     container_name: cypress-tests
     volumes:
       - ./allure-results:/app/allure-results
@@ -14,7 +14,7 @@ services:
 
   # Generate report
   report:
-    image: cypress-automation:latest
+    image: cypress-automation
     container_name: allure-report-generator
     volumes:
       - ./allure-results:/app/allure-results
