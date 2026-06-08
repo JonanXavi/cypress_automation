@@ -1,9 +1,9 @@
 services:
-    # Cypress Tests
-    tests:
+    # UI Tests
+    tests-ui:
         build: .
         image: cypress-automation
-        container_name: cypress-tests
+        container_name: cypress-ui-tests
         volumes:
             - ./allure-results:/app/allure-results
             - ./cypress/screenshots:/app/cypress/screenshots
@@ -11,6 +11,18 @@ services:
         env_file:
             - .env.dev
         command: npm run test:ui-dev
+
+    # API Tests
+    tests-api:
+        image: cypress-automation
+        container_name: cypress-api-tests
+        volumes:
+            - ./allure-results:/app/allure-results
+            - ./cypress/screenshots:/app/cypress/screenshots
+            - ./cypress/videos:/app/cypress/videos
+        env_file:
+            - .env.api
+        command: npm run test:api
 
     # Generate report
     report:
@@ -24,7 +36,6 @@ services:
     # Allure Server
     serve:
         image: nginx:alpine
-        container_name: allure-server
         volumes:
             - ./allure-report:/usr/share/nginx/html:ro
         ports:

@@ -179,7 +179,13 @@ docker build -t cypress-automation .
 ### Run UI tests
 
 ```bash
-docker compose run --rm tests
+docker compose run --rm tests-ui
+```
+
+### Run API tests
+
+```bash
+docker compose run --rm tests-api
 ```
 
 ### Generate Allure report
@@ -264,7 +270,6 @@ https://jonanxavi.github.io/cypress_automation/
 │   └── 📁 videos           # Videos recorded during test execution
 ├── 🐳 docker-compose.yml   # Docker Compose orchestration
 ├── 🐋 Dockerfile           # Docker environment for running tests
-├── 🐳 Dockerfile           # Docker Compose orchestration
 ├── 🏗 Jenkinsfile          # CI/CD pipeline configuration
 ├── 🔧 cypress.config.js    # Cypress global configuration
 ├── ⛔ eslint.config.cjs    # ESLint configuration
