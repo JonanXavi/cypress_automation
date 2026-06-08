@@ -8,11 +8,15 @@ pipeline {
     }
 
     environment {
-        TYPE = "ui"
+        TYPE1 = "ui"
+        TYPE2 = "api"
 
         BASE_URL = credentials('BASE_URL_DEV')
+        BASE_URL_API = credentials('API_URL')
         USER = credentials('USER_DEV')
+        USER_API = credentials('USER_API')
         PASSWORD = credentials('PASSWORD_DEV')
+        PASSWORD_API = credentials('PASSWORD_API')
 
         GIT_TOKEN = credentials('GITHUB_TOKEN')
         REPO_URL = "github.com/JonanXavi/cypress_automation.git"
@@ -29,11 +33,24 @@ pipeline {
             steps {
                 bat '''
                 echo BASE_URL=%BASE_URL% > .env.dev
-                echo TYPE=%TYPE% >> .env.dev
+                echo TYPE=%TYPE1% >> .env.dev
                 echo USER=%USER% >> .env.dev
                 echo PASSWORD=%PASSWORD% >> .env.dev
 
-                docker compose run --rm tests
+                docker compose run --rm tests-ui
+                '''
+            }
+        }
+
+        stage('Execute Cypress API Tests') {
+            steps {
+                bat '''
+                echo BASE_URL=%BASE_URL_API% > .env.api
+                echo TYPE=%TYPE2% >> .env.api
+                echo USER=%USER_API% >> .env.api
+                echo PASSWORD=%PASSWORD_API% >> .env.api
+
+                docker compose run --rm tests-api
                 '''
             }
         }
@@ -73,6 +90,9 @@ pipeline {
             ])
 
             archiveArtifacts artifacts: 'cypress/screenshots/**,cypress/videos/**,allure-report/**', allowEmptyArchive: true
+
+            bat 'docker compose down'
+
             cleanWs()
         }
 
