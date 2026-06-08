@@ -1,6 +1,6 @@
 {
     "name": "cypress_project",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "description": "Web automation project with Cypress",
     "main": "index.js",
     "scripts": {
@@ -14,10 +14,11 @@
         "test:report": "npx allure generate ./allure-results --clean",
         "report:open": "npx allure open allure-report",
         "docker:build": "docker build -t cypress-automation .",
-        "docker:test": "docker compose run --rm tests",
+        "docker:tests": "docker compose run --rm tests-ui && docker compose run --rm tests-api",
         "docker:report": "docker compose run --rm report",
-        "docker:serve": "docker compose up serve",
-        "docker:execution": "npm run docker:test && npm run docker:report && npm run docker:serve"
+        "docker:serve": "docker compose up -d serve",
+        "docker:down": "docker compose down",
+        "docker:execution": "npm run docker:down && npm run docker:tests && npm run docker:report && npm run docker:serve"
     },
     "keywords": [
         "cypress",

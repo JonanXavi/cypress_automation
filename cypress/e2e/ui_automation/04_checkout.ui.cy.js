@@ -15,7 +15,7 @@ describe('Checkout | Purchase flow', () => {
         });
 
         allure.owner('Jonathan Fernández');
-        allure.tags('Checkout', 'UI', 'E2E');
+        allure.tags('Checkout', 'UI');
     });
 
     it('Allows users to successfully complete a purchase', function () {
